@@ -1,7 +1,6 @@
 import React from 'react';
-
-import Footer from '../components/Footer/index';
 import { useNavigate } from 'react-router-dom';
+import Footer from '../components/Footer/index';
 
 function Profile() {
   const navigate = useNavigate();
