@@ -1,8 +1,8 @@
 import React from 'react';
 import { screen } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
-import Footer from '../components/Footer/index';
 import { renderWithRouter } from '../utils/renderWithRouter';
+import Footer from '../components/Footer/index';
 
 test('Verifica se o menu inferior existe e contém os ícones', () => {
   renderWithRouter(<Footer />);
