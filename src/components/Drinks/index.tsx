@@ -1,9 +1,10 @@
 import { useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
-import { CategoryType, DrinkRecipeType } from '../../types';
+
 import RecipeCard from '../RecipeCard';
 import useFetchDrinks from '../../hooks/useFetchDrinks';
 import fetchDrinksByCategory from '../../utils/fetchDrinksByCategory';
+import { CategoryType, DrinkRecipeType } from '../../types';
 
 function Drinks() {
   const [drinks, setdrinks] = useState<DrinkRecipeType[]>([]);
