@@ -1,0 +1,21 @@
+.footer {
+  background-color: white;
+  border-top: 1px solid #ddd;
+  bottom: 0;
+  display: flex;
+  justify-content: space-around;
+  padding: 10px 0;
+  position: fixed;
+  width: 100%;
+}
+
+.footer-btn {
+  background: none;
+  border: none;
+  cursor: pointer;
+}
+
+.footer-btn img {
+  height: 30px;
+  width: 30px;
+}
