@@ -1,12 +1,12 @@
 .footer {
-  position: fixed;
+  background-color: white;
+  border-top: 1px solid #ddd;
   bottom: 0;
-  width: 100%;
   display: flex;
   justify-content: space-around;
-  background-color: #fff;
-  border-top: 1px solid #ddd;
   padding: 10px 0;
+  position: fixed;
+  width: 100%;
 }
 
 .footer-btn {
@@ -16,6 +16,6 @@
 }
 
 .footer-btn img {
-  width: 30px;
   height: 30px;
+  width: 30px;
 }
