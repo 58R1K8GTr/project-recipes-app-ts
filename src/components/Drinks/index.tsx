@@ -1,6 +1,5 @@
 import { useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
-
 import RecipeCard from '../RecipeCard';
 import useFetchDrinks from '../../hooks/useFetchDrinks';
 import fetchDrinksByCategory from '../../utils/fetchDrinksByCategory';
