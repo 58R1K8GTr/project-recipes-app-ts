@@ -1,6 +1,5 @@
 import { useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
-
 import RecipeCard from '../RecipeCard';
 import useFetchDrinks from '../../hooks/useFetchDrinks';
 import fetchDrinksByCategory from '../../utils/fetchDrinksByCategory';
@@ -34,12 +33,6 @@ function Drinks() {
       setSelectedCategory('All');
     }
   };
-
-  console.log(drinks.map((drink) => ({
-    idDrink: drink.idDrink,
-    strDrink: drink.strDrink,
-    strDrinkThumb: drink.strDrinkThumb,
-  })));
 
   return (
     <div>
