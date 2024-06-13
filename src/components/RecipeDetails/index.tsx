@@ -32,7 +32,7 @@ function RecipeDetails() {
             {Object.keys(recipe)
               .filter((key) => key.includes('Ingredient') && recipe[key])
               .map((key, index) => (
-                <li key={ index } data-testid={ `${index}-ingredient-name-and-measure` }>
+                <li key={ id } data-testid={ `${index}-ingredient-name-and-measure` }>
                   {recipe[key]}
                   {' '}
                   -
@@ -59,7 +59,7 @@ function RecipeDetails() {
           {isMeal ? 'Drinks' : 'Meals'}
         </h2>
         {recommendations.slice(0, 6).map((item, index) => (
-          <RecommendationCard key={ index } item={ item } index={ index } />
+          <RecommendationCard key={ id } item={ item } index={ index } />
         ))}
       </div>
     </div>
