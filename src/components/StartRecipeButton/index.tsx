@@ -1,10 +1,12 @@
-function StartRecipeButton() {
+import './styles.css';
+
+function StartRecipeButton({ text }) {
   return (
     <button
       data-testid="start-recipe-btn"
-      className=""
+      className="start_button"
     >
-      Start Recipe
+      {`${text} Recipe`}
     </button>
   );
 }
