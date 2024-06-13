@@ -1,26 +1,47 @@
 import { useState, useEffect } from 'react';
-import { Recipe } from '../type';
+import { Recipe, RecommendationType } from '../types';
 
-const useFetchRecipe = (id: string, type: 'meals' | 'drinks') => {
-  const [recipe, setRecipe] = useState<Recipe | null>(null);
+const useFetchRecipeAndRecommendations = (id: string, type: 'meals' | 'drinks') => {
+  const [recipe, setRecipe] = useState<Recipe>();
+  const [recommendations, setRecommendations] = useState<RecommendationType[]>([]);
   const [isLoading, setIsLoading] = useState(true);
 
   useEffect(() => {
-    const fetchRecipe = async () => {
-      const endpoint = type === 'meals'
-        ? `https://www.themealdb.com/api/json/v1/1/lookup.php?i=${id}`
-        : `https://www.thecocktaildb.com/api/json/v1/1/lookup.php?i=${id}`;
+    const fetchRecipeAndRecommendations = async () => {
+      setIsLoading(true);
+      try {
+        const recipeEndpoint = type === 'meals'
+          ? `https://www.themealdb.com/api/json/v1/1/lookup.php?i=${id}`
+          : `https://www.thecocktaildb.com/api/json/v1/1/lookup.php?i=${id}`;
 
-      const response = await fetch(endpoint);
-      const data = await response.json();
-      setRecipe(data[type][0]);
+        const recommendationEndpoint = type === 'meals'
+          ? 'https://www.thecocktaildb.com/api/json/v1/1/search.php?s='
+          : 'https://www.themealdb.com/api/json/v1/1/search.php?s=';
+
+        const [recipeResponse, recommendationResponse] = await Promise.all([
+          fetch(recipeEndpoint),
+          fetch(recommendationEndpoint),
+        ]);
+
+        const recipeData = await recipeResponse.json();
+        console.log(recipeData);
+        const recommendationData = await recommendationResponse.json();
+        console.log(recommendationData);
+
+        setRecipe(recipeData);
+        setRecommendations(type === 'meals'
+          ? recommendationData.drinks
+          : recommendationData.meals);
+      } catch (error) {
+        console.error('Falha ao buscar receita e recomendações', error);
+      }
       setIsLoading(false);
     };
 
-    fetchRecipe();
+    fetchRecipeAndRecommendations();
   }, [id, type]);
 
-  return { recipe, isLoading };
+  return { recipe, recommendations, isLoading };
 };
 
-export default useFetchRecipe;
+export default useFetchRecipeAndRecommendations;
