@@ -23,8 +23,8 @@ function RecipeDetails() {
 
   return (
     <div className="recipe-details">
-      {recipeData && recipeData.map((recipeInfo: Recipe) => (
-        <>
+      {recipeData && recipeData.map((recipeInfo: Recipe, index: number) => (
+        <div key={ index }>
           <img
             data-testid="recipe-photo"
             src={ isMeal ? recipeInfo.strMealThumb : recipeInfo.strDrinkThumb }
@@ -39,8 +39,11 @@ function RecipeDetails() {
           <ul>
             {Object.keys(recipeInfo)
               .filter((key) => key.includes('Ingredient') && recipeInfo[key])
-              .map((key, index) => (
-                <li key={ index } data-testid={ `${index}-ingredient-name-and-measure` }>
+              .map((key) => (
+                <li
+                  key={ `${key}-${index}` }
+                  data-testid={ `${index}-ingredient-name-and-measure` }
+                >
                   {recipeInfo[key]}
                   {' '}
                   -
@@ -59,7 +62,7 @@ function RecipeDetails() {
               allowFullScreen
             />
           )}
-        </>
+        </div>
       ))}
       <div className="recommendations">
         <h2>
@@ -67,7 +70,7 @@ function RecipeDetails() {
           {isMeal ? 'Drinks' : 'Meals'}
         </h2>
         {recommendations.slice(0, 6).map((item, index) => (
-          <RecommendationCard key={ id } item={ item } index={ index } />
+          <RecommendationCard key={ `${id}-${index}` } item={ item } index={ index } />
         ))}
       </div>
     </div>
