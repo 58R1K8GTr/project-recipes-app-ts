@@ -2,7 +2,7 @@ import React from 'react';
 import { screen } from '@testing-library/react';
 import { vi } from 'vitest';
 import { act } from 'react-dom/test-utils';
-import RecipeDetails from '../components/RecipeDetails';
+import RecipeDetails from '../pages/RecipeDetails';
 import App from '../App';
 import { renderWithRouter } from '../utils/renderWithRouter';
 
