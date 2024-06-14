@@ -1,6 +1,6 @@
 import './recommended-card.css';
 import { Card } from 'react-bootstrap';
-import { RecommendationProps, RecommendationType } from '../../types';
+import { RecommendationProps } from '../../types';
 
 function RecommendedCard({ item, index }: RecommendationProps) {
   const isMeal = item.strMeal !== undefined;
