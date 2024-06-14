@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import { useParams } from 'react-router-dom';
+import { Link, useParams } from 'react-router-dom';
 import RecommendationCard from '../../components/RecomendationCard';
 import useFetchRecipeAndRecommendations from '../../hooks/useFetchRecipe';
 import { DoneRecipeType, Recipe } from '../../types';
@@ -52,7 +52,12 @@ function RecipeDetails() {
 
   return (
     <div className="recipe-details">
-      {!isDoneRecipe && <StartRecipeButton text={ status } />}
+      {!isDoneRecipe
+      && (
+        <Link to={ `/${type}/${id}/in-progress` }>
+          <StartRecipeButton text={ status } />
+        </Link>
+      )}
       {recipeData && recipeData.map((recipeInfo: Recipe, index: number) => (
         <div key={ index }>
           <img
