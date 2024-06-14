@@ -109,26 +109,32 @@ test('Teste do component Header na rota "/favorite-recipes" ', () => {
   expect(searchIcon).not.toBeInTheDocument();
 });
 
-test('Teste se ao clicar no ícone do Profile, é direcionado à rota "/profile" ', async () => {
-  const { user } = renderWithRouter(<App />, { route: ROUTES.MEALS });
-  const { profileIcon } = setup();
+test(
+  'Teste se ao clicar no ícone do Profile, é direcionado à rota "/profile" ',
+  async () => {
+    const { user } = renderWithRouter(<App />, { route: ROUTES.MEALS });
+    const { profileIcon } = setup();
 
-  if (profileIcon) {
-    await user.click(profileIcon);
-    expect(screen.getByTestId(PAGE_TITLE).textContent).toBe('Profile');
-    expect(window.location.pathname).toBe(ROUTES.PROFILE);
-  }
-});
+    if (profileIcon) {
+      await user.click(profileIcon);
+      expect(screen.getByTestId(PAGE_TITLE).textContent).toBe('Profile');
+      expect(window.location.pathname).toBe(ROUTES.PROFILE);
+    }
+  },
+);
 
-test('Verifica se a barra de busca é exibida e oculta ao clicar no ícone de busca', async () => {
-  const { user } = renderWithRouter(<App />, { route: ROUTES.MEALS });
-  const { searchIcon } = setup();
+test(
+  'Verifica se a barra de busca é exibida e oculta ao clicar no ícone de busca',
+  async () => {
+    const { user } = renderWithRouter(<App />, { route: ROUTES.MEALS });
+    const { searchIcon } = setup();
 
-  if (searchIcon) {
-    expect(screen.queryByTestId(SEARCH_INPUT)).not.toBeInTheDocument();
-    await user.click(searchIcon);
-    expect(screen.getByTestId(SEARCH_INPUT)).toBeInTheDocument();
-    await user.click(searchIcon);
-    expect(screen.queryByTestId(SEARCH_INPUT)).not.toBeInTheDocument();
-  }
-});
+    if (searchIcon) {
+      expect(screen.queryByTestId(SEARCH_INPUT)).not.toBeInTheDocument();
+      await user.click(searchIcon);
+      expect(screen.getByTestId(SEARCH_INPUT)).toBeInTheDocument();
+      await user.click(searchIcon);
+      expect(screen.queryByTestId(SEARCH_INPUT)).not.toBeInTheDocument();
+    }
+  },
+);

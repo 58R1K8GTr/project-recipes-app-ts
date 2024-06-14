@@ -1,3 +1,5 @@
+import { ReactNode } from 'react';
+
 export type MealRecipeType = {
   dateModified: string;
   idMeal: string;
@@ -149,4 +151,23 @@ export type DoneRecipeType = {
   image: string;
   doneDate: string;
   tags: string;
+};
+
+export type UrlsType = {
+  ingredient: string;
+  name: string;
+  firstletter: string;
+};
+
+export type ChildrenProp = {
+  children: ReactNode;
+};
+
+export type DataContextType = {
+  meals: MealRecipeType[];
+  setMeals: (dataMeals: MealRecipeType[]) => void;
+  drinks: DrinkRecipeType[];
+  setDrinks: (dataDrinks: DrinkRecipeType[]) => void;
+  categories: CategoryType[];
+  setCategories: (categories: CategoryType[]) => void;
 };

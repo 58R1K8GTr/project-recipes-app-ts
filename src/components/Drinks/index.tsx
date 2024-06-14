@@ -1,22 +1,24 @@
-import { useEffect, useState } from 'react';
+import { useContext, useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
+
 import RecipeCard from '../RecipeCard';
 import useFetchDrinks from '../../hooks/useFetchDrinks';
 import fetchDrinksByCategory from '../../utils/fetchDrinksByCategory';
-import { CategoryType, DrinkRecipeType } from '../../types';
+import { DrinkRecipeType } from '../../types';
+import DataContext from '../../context/DataContext';
 
 function Drinks() {
-  const [drinks, setdrinks] = useState<DrinkRecipeType[]>([]);
-  const [categories, setCategories] = useState<CategoryType[]>([]);
+  const { drinks, setDrinks, categories, setCategories } = useContext(DataContext);
+
   const [selectedCategory, setSelectedCategory] = useState<string>('All');
   const [drinksByCategory, setDrinksByCategory] = useState<DrinkRecipeType[]>([]);
 
   const fetchedData = useFetchDrinks();
 
   useEffect(() => {
-    setdrinks(fetchedData.drinks);
+    setDrinks(fetchedData.drinks);
     setCategories(fetchedData.categories);
-  }, [fetchedData]);
+  }, [fetchedData, setCategories, setDrinks]);
 
   useEffect(() => {
     if (selectedCategory !== 'All') {
