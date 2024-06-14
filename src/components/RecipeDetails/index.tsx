@@ -3,6 +3,9 @@ import { useParams } from 'react-router-dom';
 import RecommendationCard from '../RecomendationCard';
 import useFetchRecipeAndRecommendations from '../../hooks/useFetchRecipe';
 import { Recipe } from '../../types';
+import RecommendedCard from '../RecommendedCard';
+import RecommendedCarousel from '../Carousel';
+import './recipe-details.css';
 
 function RecipeDetails() {
   const { id = '' } = useParams<{ id?: string }>();
@@ -66,9 +69,7 @@ function RecipeDetails() {
           Recommended
           {isMeal ? 'Drinks' : 'Meals'}
         </h2>
-        {recommendations.slice(0, 6).map((item, index) => (
-          <RecommendationCard key={ id } item={ item } index={ index } />
-        ))}
+        <RecommendedCarousel />
       </div>
     </div>
   );

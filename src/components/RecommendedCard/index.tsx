@@ -1,35 +1,28 @@
 import './recommended-card.css';
 import { Card } from 'react-bootstrap';
+import { RecommendationProps, RecommendationType } from '../../types';
 
-function RecommendedCard({ index, title }: { index: number[], title: string[] }) {
-  const temp = 'https://www.themealdb.com/images/media/meals/wvpsxx1468256321.jpg';
+function RecommendedCard({ item, index }: RecommendationProps) {
+  const isMeal = item.strMeal !== undefined;
+
   return (
-    <div className="recommended-card-container">
+    <li className="recommended-card-container">
       <Card
-        data-testid={ `${index[0]}-recommendation-card` }
+        data-testid={ `${index}-recommendation-card` }
         className="recommended-card"
       >
-        <Card.Img className="recommended-img" src={ temp } />
+        <Card.Img
+          className="recommended-img"
+          src={ isMeal ? item.strMealThumb : item.strDrinkThumb }
+        />
         <Card.Footer
           className="recommended-card-footer"
-          data-testid={ `${index[0]}-recommendation-title` }
+          data-testid={ `${index}-recommendation-title` }
         >
-          {title[0]}
+          {isMeal ? item.strMeal : item.strDrink}
         </Card.Footer>
       </Card>
-      <Card
-        data-testid={ `${index[1]}-recommendation-card` }
-        className="recommended-card"
-      >
-        <Card.Img className="recommended-img" src={ temp } />
-        <Card.Footer
-          className="recommended-card-footer"
-          data-testid={ `${index[1]}-recommendation-title` }
-        >
-          {title[1]}
-        </Card.Footer>
-      </Card>
-    </div>
+    </li>
   );
 }
 

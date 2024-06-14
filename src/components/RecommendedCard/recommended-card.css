@@ -1,6 +1,6 @@
 .recommended-card-container {
+  cursor: pointer;
   display: flex;
-  gap: 20px;
   justify-content: center;
   margin-bottom: 10px;
 }
