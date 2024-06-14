@@ -6,7 +6,7 @@ import Login from './pages/Login/Login';
 import Profile from './pages/Profile';
 import DoneRecipes from './pages/DoneRecipes';
 import FavoriteRecipes from './pages/FavoriteRecipes';
-import RecipeDetails from './components/RecipeDetails';
+import RecipeDetails from './pages/RecipeDetails';
 import Recipes from './pages/Recipes';
 import Layout from './components/Layout';
 
