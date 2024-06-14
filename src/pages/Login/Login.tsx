@@ -1,5 +1,6 @@
 import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
+import './styles.css';
 
 function Login() {
   const [email, setEmail] = useState('');
@@ -17,9 +18,12 @@ function Login() {
   };
 
   return (
-    <div>
+    <div className="login_page">
+      <img src="logo.svg" alt="" />
+      <h2 className="login_page--title">Faça seu Login</h2>
       <form onSubmit={ handleSubmit }>
-        <label htmlFor="email">
+        <div className="input_box">
+          <label htmlFor="email">Email:</label>
           <input
             type="email"
             name="email"
@@ -28,8 +32,9 @@ function Login() {
             data-testid="email-input"
             onChange={ ({ target }) => setEmail(target.value) }
           />
-        </label>
-        <label htmlFor="password">
+        </div>
+        <div className="input_box">
+          <label htmlFor="password">Senha:</label>
           <input
             type="password"
             name="password"
@@ -38,7 +43,7 @@ function Login() {
             data-testid="password-input"
             onChange={ ({ target }) => setPassword(target.value) }
           />
-        </label>
+        </div>
         <button
           type="submit"
           data-testid="login-submit-btn"
