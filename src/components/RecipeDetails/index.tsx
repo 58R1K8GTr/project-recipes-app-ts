@@ -25,12 +25,11 @@ function RecipeDetails() {
     const storedStatusJSON = localStorage.getItem('inProgressRecipes');
 
     if (storedRecipeJSON) {
-      const storedRecipe = JSON.parse(storedRecipeJSON);
+      const storedRecipes = JSON.parse(storedRecipeJSON);
 
-      if (storedRecipe
-        .some((doneRecipe: DoneRecipeType) => doneRecipe.id === id)) {
-        setIsDoneRecipe(true);
-      }
+      const recipeFound = storedRecipes
+        .some((storedRecipe: DoneRecipeType) => storedRecipe.id === id);
+      setIsDoneRecipe(recipeFound);
     }
 
     if (storedStatusJSON) {
@@ -42,8 +41,6 @@ function RecipeDetails() {
       }
     }
   }, [id, type]);
-  //
-  //
 
   if (isLoading) return <div>Loading...</div>;
 

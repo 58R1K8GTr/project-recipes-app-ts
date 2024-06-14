@@ -1,6 +1,6 @@
 import './styles.css';
 
-function StartRecipeButton({ text }) {
+function StartRecipeButton({ text }: { text: string }) {
   return (
     <button
       data-testid="start-recipe-btn"
