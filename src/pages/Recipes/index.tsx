@@ -6,18 +6,9 @@ import Footer from '../../components/Footer';
 function Recipes() {
   const location = useLocation();
 
-  if (location.pathname === '/meals') {
-    return (
-      <>
-        <Meals />
-        <Footer />
-      </>
-    );
-  }
-
   return (
     <>
-      <Drinks />
+      { location.pathname === '/meals' ? <Meals /> : <Drinks /> }
       <Footer />
     </>
   );

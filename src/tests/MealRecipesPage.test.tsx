@@ -3,6 +3,10 @@ import { vi } from 'vitest';
 import userEvent from '@testing-library/user-event';
 import { renderWithRouter } from '../utils/renderWithRouter';
 import App from '../App';
+import mockDataNameArrabiata from './helpers/mockDataSearchByMealNameArrabiata.json';
+import mockDataFirstLetterA from './helpers/mockDataListAllMealsByFirstLetterA.json';
+import mockDataIngredientChickenBreast from './helpers/mockDataFilterByMainIngredientChickenBreast.json';
+import DataProvider from '../context/DataProvider';
 
 const categoriesTestData = {
   meals: [
@@ -98,28 +102,80 @@ const beefCategoryTestData = {
   ],
 };
 
+const recommendationTestData = {
+  drinks: [
+    { idDrink: '1', strDrink: 'Recommendation 1' },
+    { idDrink: '2', strDrink: 'Recommendation 2' },
+  ],
+};
+
+const MOCK_RESPONSE_NAME = {
+  ok: true,
+  status: 200,
+  json: async () => mockDataNameArrabiata,
+} as Response;
+
+const MOCK_RESPONSE_FIRST_LETTER = {
+  ok: true,
+  status: 200,
+  json: async () => mockDataFirstLetterA,
+} as Response;
+
+const MOCK_RESPONSE_INGREDIENT = {
+  ok: true,
+  status: 200,
+  json: async () => mockDataIngredientChickenBreast,
+} as Response;
+
+const MOCK_RESPONSE_NO_RESULTS = {
+  ok: true,
+  status: 200,
+  json: async () => ({ meals: undefined }),
+} as Response;
+
+const testIdSearchInput = 'search-input';
+const testIdSearchButton = 'exec-search-btn';
+
+const MOCK_RESPONSE_1 = {
+  ok: true,
+  status: 200,
+  json: async () => mealsTestData,
+} as Response;
+
+const MOCK_RESPONSE_2 = {
+  ok: true,
+  status: 200,
+  json: async () => categoriesTestData,
+} as Response;
+
+const MOCK_RESPONSE_3 = {
+  ok: true,
+  status: 200,
+  json: async () => recommendationTestData,
+} as Response;
+
+const MOCK_RESPONSE_4 = {
+  ok: true,
+  status: 200,
+  json: async () => ({ meals: [mockDataNameArrabiata.meals[0]] }),
+} as Response;
+
 describe('Testa a página de meals', () => {
   beforeEach(async () => {
-    const MOCK_RESPONSE_1 = {
-      ok: true,
-      status: 200,
-      json: async () => mealsTestData,
-    } as Response;
-
-    const MOCK_RESPONSE_2 = {
-      ok: true,
-      status: 200,
-      json: async () => categoriesTestData,
-    } as Response;
-
     vi.spyOn(global, 'fetch')
       .mockResolvedValueOnce(MOCK_RESPONSE_1)
       .mockResolvedValueOnce(MOCK_RESPONSE_2);
 
     await act(async () => {
-      renderWithRouter(<App />, { route: '/meals' });
+      renderWithRouter((
+        <DataProvider>
+          <App />
+        </DataProvider>), { route: '/meals' });
     });
   });
+
+  const searchRadioName = 'name-search-radio';
+  const searchRadioFirstLetter = 'first-letter-search-radio';
 
   test('Renderiza a página e aguarda a API ser chamada.', async () => {
     const meal = await screen.findByTestId('0-recipe-card');
@@ -193,5 +249,93 @@ describe('Testa a página de meals', () => {
     const firstMealAgain = screen.getByText('Corba');
 
     expect(firstMealAgain).toBeInTheDocument();
+  });
+  test('Ao selecionar as opções corretas, recebe as refeições via name', async () => {
+    const mockFetch = vi.spyOn(global, 'fetch')
+      .mockResolvedValue(MOCK_RESPONSE_NAME)
+      .mockResolvedValueOnce(MOCK_RESPONSE_3)
+      .mockResolvedValueOnce(MOCK_RESPONSE_4);
+
+    const selectInput = screen.getByTestId(searchRadioName);
+    const textInput = screen.getByTestId(testIdSearchInput);
+    const buttonSearch = screen.getByTestId(testIdSearchButton);
+
+    await userEvent.type(textInput, 'Arrabiata');
+    await userEvent.click(selectInput);
+    await userEvent.click(buttonSearch);
+
+    expect(mockFetch).toBeCalledWith('https://www.themealdb.com/api/json/v1/1/search.php?s=Arrabiata');
+  });
+  test('Ao selecionar as opções corretas, recebe as refeições via first letter', async () => {
+    const mockFetch = vi.spyOn(global, 'fetch').mockResolvedValue(MOCK_RESPONSE_FIRST_LETTER);
+
+    const selectInput = screen.getByTestId(searchRadioFirstLetter);
+    const textInput = screen.getByTestId(testIdSearchInput);
+    const buttonSearch = screen.getByTestId(testIdSearchButton);
+
+    await userEvent.type(textInput, 'a');
+    await userEvent.click(selectInput);
+    await userEvent.click(buttonSearch);
+
+    expect(mockFetch).toBeCalledWith('https://www.themealdb.com/api/json/v1/1/search.php?f=a');
+  });
+  test('Ao selecionar as opções corretas, recebe as refeições via ingredient', async () => {
+    const mockFetch = vi.spyOn(global, 'fetch').mockResolvedValue(MOCK_RESPONSE_INGREDIENT);
+
+    const selectInputIngredient = screen.getByTestId('ingredient-search-radio');
+    const selectInputName = screen.getByTestId(searchRadioName);
+    const selectInputFirstLetter = screen.getByTestId(searchRadioFirstLetter);
+    const textInput = screen.getByTestId(testIdSearchInput);
+    const buttonSearch = screen.getByTestId(testIdSearchButton);
+
+    expect(selectInputIngredient).toBeChecked();
+    expect(selectInputName).not.toBeChecked();
+    expect(selectInputFirstLetter).not.toBeChecked();
+
+    await userEvent.click(selectInputName);
+    expect(selectInputName).toBeChecked();
+    expect(selectInputIngredient).not.toBeChecked();
+    expect(selectInputFirstLetter).not.toBeChecked();
+
+    await userEvent.click(selectInputIngredient);
+    expect(selectInputName).not.toBeChecked();
+    expect(selectInputIngredient).toBeChecked();
+    expect(selectInputFirstLetter).not.toBeChecked();
+
+    await userEvent.type(textInput, 'chicken_breast');
+    await userEvent.click(selectInputIngredient);
+    await userEvent.click(buttonSearch);
+
+    expect(mockFetch).toBeCalledWith('https://www.themealdb.com/api/json/v1/1/filter.php?i=chicken_breast');
+  });
+  test('Ao selecionar as opções erradas, recebe um alerta', async () => {
+    const mockFetch = vi.spyOn(global, 'fetch').mockResolvedValue(MOCK_RESPONSE_FIRST_LETTER);
+    const mockAlert = vi.spyOn(window, 'alert').mockImplementation(() => {});
+
+    const selectInput = screen.getByTestId(searchRadioFirstLetter);
+    const textInput = screen.getByTestId(testIdSearchInput);
+    const buttonSearch = screen.getByTestId(testIdSearchButton);
+
+    await userEvent.type(textInput, 'aa');
+    await userEvent.click(selectInput);
+    await userEvent.click(buttonSearch);
+
+    expect(mockAlert).toBeCalledTimes(1);
+    expect(mockFetch).not.toBeCalledWith('https://www.themealdb.com/api/json/v1/1/search.php?f=aa');
+  });
+  test('Ao selecionar algo que não retorna nenhum resultado, recebe um alerta', async () => {
+    vi.spyOn(global, 'fetch').mockResolvedValueOnce(MOCK_RESPONSE_NO_RESULTS);
+    const mockAlert = vi.spyOn(window, 'alert').mockImplementation(() => {});
+
+    const selectInput = screen.getByTestId(searchRadioName);
+    const textInput = screen.getByTestId(testIdSearchInput);
+    const buttonSearch = screen.getByTestId(testIdSearchButton);
+
+    await userEvent.type(textInput, 'python3');
+    await userEvent.click(selectInput);
+    await userEvent.click(buttonSearch);
+
+    expect(mockAlert).toBeCalledTimes(1);
+    expect(mockAlert).toHaveBeenLastCalledWith("Sorry, we haven't found any recipes for these filters");
   });
 });
