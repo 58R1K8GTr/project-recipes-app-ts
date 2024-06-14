@@ -1,9 +1,7 @@
 import React from 'react';
 import { useParams } from 'react-router-dom';
-import RecommendationCard from '../RecomendationCard';
 import useFetchRecipeAndRecommendations from '../../hooks/useFetchRecipe';
 import { Recipe } from '../../types';
-import RecommendedCard from '../RecommendedCard';
 import RecommendedCarousel from '../Carousel';
 import './recipe-details.css';
 
@@ -13,7 +11,6 @@ function RecipeDetails() {
   const isMeal = window.location.pathname.includes('/meals');
   const {
     recipe,
-    recommendations,
     isLoading } = useFetchRecipeAndRecommendations(id, isMeal ? 'meals' : 'drinks');
 
   if (isLoading) return <div>Loading...</div>;
