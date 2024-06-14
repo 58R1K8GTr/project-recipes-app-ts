@@ -1,9 +1,9 @@
 import React, { useEffect, useState } from 'react';
 import { useParams } from 'react-router-dom';
-import RecommendationCard from '../RecomendationCard';
+import RecommendationCard from '../../components/RecomendationCard';
 import useFetchRecipeAndRecommendations from '../../hooks/useFetchRecipe';
 import { DoneRecipeType, Recipe } from '../../types';
-import StartRecipeButton from '../StartRecipeButton';
+import StartRecipeButton from '../../components/StartRecipeButton';
 import './styles.css';
 
 function RecipeDetails() {
@@ -70,10 +70,10 @@ function RecipeDetails() {
           <ul>
             {Object.keys(recipeInfo)
               .filter((key) => key.includes('Ingredient') && recipeInfo[key])
-              .map((key) => (
+              .map((key, ingredientIndex) => (
                 <li
                   key={ `${key}-${index}` }
-                  data-testid={ `${index}-ingredient-name-and-measure` }
+                  data-testid={ `${ingredientIndex}-ingredient-name-and-measure` }
                 >
                   {recipeInfo[key]}
                   {' '}
