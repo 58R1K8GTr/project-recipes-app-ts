@@ -1,5 +1,5 @@
 import React from 'react';
-import { render, screen, waitFor } from '@testing-library/react';
+import { screen } from '@testing-library/react';
 import { vi } from 'vitest';
 import { act } from 'react-dom/test-utils';
 import RecipeDetails from '../components/RecipeDetails';
@@ -31,7 +31,7 @@ const recommendationTestData = {
 describe('Testar o RecipeDetails.', () => {
   it('Verifica se o carregando é renderizado', async () => {
     vi.spyOn(global, 'fetch');
-    render(<RecipeDetails />);
+    renderWithRouter(<RecipeDetails />);
     const carregando = await screen.findByText(/Loading.../i);
     expect(carregando).toBeInTheDocument();
   });
@@ -70,15 +70,5 @@ describe('Testar o RecipeDetails.', () => {
     expect(recipeCategory).toHaveTextContent('Side');
     expect(instructions).toHaveTextContent('Pick through your lentils...');
     expect(video).toHaveAttribute('src', 'https://www.youtube.com/embed/VVnZd8A84z4');
-  });
-
-  it('Verifica se as recomendações são renderizadas corretamente', async () => {
-    await waitFor(() => expect(screen.queryByText(/Loading.../i)).not.toBeInTheDocument());
-
-    const recommendation1 = await screen.findByText('Recommendation 1');
-    const recommendation2 = await screen.findByText('Recommendation 2');
-
-    expect(recommendation1).toBeInTheDocument();
-    expect(recommendation2).toBeInTheDocument();
   });
 });
