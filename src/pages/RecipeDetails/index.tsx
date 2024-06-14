@@ -1,11 +1,10 @@
 import './recipe-details.css';
 import React, { useEffect, useState } from 'react';
 import { Link, useParams } from 'react-router-dom';
-import RecommendedCarousel from '../Carousel';
+import RecommendedCarousel from '../../components/Carousel/index';
 import useFetchRecipeAndRecommendations from '../../hooks/useFetchRecipe';
 import { DoneRecipeType, Recipe } from '../../types';
 import StartRecipeButton from '../../components/StartRecipeButton';
-import './styles.css';
 
 function RecipeDetails() {
   const { id = '' } = useParams<{ id?: string }>();
