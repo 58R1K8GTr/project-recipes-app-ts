@@ -1,6 +1,6 @@
 import { screen } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
-import Login from '../components/Login';
+import Login from '../pages/Login/Login';
 import { renderWithRouter } from '../utils/renderWithRouter';
 
 test('O botão deve estar desativado se o e-mail for inválido', async () => {

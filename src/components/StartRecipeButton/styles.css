@@ -1,0 +1,12 @@
+.start_button {
+  background-color: orange;
+  border: none;
+  border-radius: 12px;
+  bottom: 0;
+  cursor: pointer;
+  height: 50px;
+  margin: 0 1rem 1rem 0;
+  position: fixed;
+  right: 0;
+  width: 100px;
+}

@@ -1,9 +1,11 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import { useParams } from 'react-router-dom';
 import useFetchRecipeAndRecommendations from '../../hooks/useFetchRecipe';
-import { Recipe } from '../../types';
 import RecommendedCarousel from '../Carousel';
 import './recipe-details.css';
+import { DoneRecipeType, Recipe } from '../../types';
+import StartRecipeButton from '../StartRecipeButton';
+import './styles.css';
 
 function RecipeDetails() {
   const { id = '' } = useParams<{ id?: string }>();
@@ -12,6 +14,33 @@ function RecipeDetails() {
   const {
     recipe,
     isLoading } = useFetchRecipeAndRecommendations(id, isMeal ? 'meals' : 'drinks');
+
+  // Checks if the id is present in any of the 'doneRecipes' in localstorage
+  // Also checks if the id is present in any of 'inProgressRecipes' in localstorage
+  const [isDoneRecipe, setIsDoneRecipe] = useState(false);
+  const [status, setStatus] = useState('Start');
+
+  useEffect(() => {
+    const storedRecipeJSON = localStorage.getItem('doneRecipes');
+    const storedStatusJSON = localStorage.getItem('inProgressRecipes');
+
+    if (storedRecipeJSON) {
+      const storedRecipes = JSON.parse(storedRecipeJSON);
+
+      const recipeFound = storedRecipes
+        .some((storedRecipe: DoneRecipeType) => storedRecipe.id === id);
+      setIsDoneRecipe(recipeFound);
+    }
+
+    if (storedStatusJSON) {
+      const statusOfRecipe = JSON.parse(storedStatusJSON);
+      const isStarted = id in statusOfRecipe[type];
+
+      if (isStarted) {
+        setStatus('Continue');
+      }
+    }
+  }, [id, type]);
 
   if (isLoading) return <div>Loading...</div>;
 
@@ -23,10 +52,12 @@ function RecipeDetails() {
 
   return (
     <div className="recipe-details">
-      {recipeData && recipeData.map((recipeInfo: Recipe) => (
-        <>
+      {!isDoneRecipe && <StartRecipeButton text={ status } />}
+      {recipeData && recipeData.map((recipeInfo: Recipe, index: number) => (
+        <div key={ index }>
           <img
             data-testid="recipe-photo"
+            className="recipe_image"
             src={ isMeal ? recipeInfo.strMealThumb : recipeInfo.strDrinkThumb }
             alt={ isMeal ? recipeInfo.strMeal : recipeInfo.strDrink }
           />
@@ -39,8 +70,11 @@ function RecipeDetails() {
           <ul>
             {Object.keys(recipeInfo)
               .filter((key) => key.includes('Ingredient') && recipeInfo[key])
-              .map((key, index) => (
-                <li key={ index } data-testid={ `${index}-ingredient-name-and-measure` }>
+              .map((key) => (
+                <li
+                  key={ `${key}-${index}` }
+                  data-testid={ `${index}-ingredient-name-and-measure` }
+                >
                   {recipeInfo[key]}
                   {' '}
                   -
@@ -53,13 +87,13 @@ function RecipeDetails() {
             <iframe
               data-testid="video"
               title="Recipe Video"
-              width="560"
+              width="100%"
               height="315"
               src={ `https://www.youtube.com/embed/${recipeInfo.strYoutube.split('v=')[1]}` }
               allowFullScreen
             />
           )}
-        </>
+        </div>
       ))}
       <div className="recommendations">
         <h2>

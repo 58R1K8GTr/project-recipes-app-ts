@@ -1,0 +1,31 @@
+.login_page {
+  align-items: center;
+  display: flex;
+  flex-direction: column;
+  height: 100vh;
+  justify-content: center;
+}
+
+.login_page--title {
+  margin-bottom: 1rem;
+}
+
+.login_page form {
+  align-items: center;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+
+.input_box {
+  margin-top: 1rem;
+}
+
+.input_box label {
+  display: block;
+}
+
+.login_page form button {
+  margin-top: 1rem;
+  width: 100%;
+}
