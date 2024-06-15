@@ -57,38 +57,40 @@ function Drinks() {
         ))}
       </div>
       <div>
-        {selectedCategory === 'All'
-          ? drinks.map((drink, index) => (
-            <Link
-              key={ index }
-              to={ `${drink.idDrink}` }
-            >
-              <RecipeCard
-                data-testid={ `${index}-recipe-card` }
-                cardInfo={ (
-              { recipeName: drink.strDrink,
-                recipeImage: drink.strDrinkThumb,
-                index }
-                ) }
-              />
-            </Link>
+        {
+          drinks && selectedCategory === 'All'
+            ? drinks.map((drink, index) => (
+              <Link
+                key={ index }
+                to={ `${drink.idDrink}` }
+              >
+                <RecipeCard
+                  data-testid={ `${index}-recipe-card` }
+                  cardInfo={ (
+                { recipeName: drink.strDrink,
+                  recipeImage: drink.strDrinkThumb,
+                  index }
+                  ) }
+                />
+              </Link>
 
-          ))
-          : drinksByCategory.map((drink, index) => (
-            <Link
-              key={ index }
-              to={ `${drink.idDrink}` }
-            >
-              <RecipeCard
-                data-testid={ `${index}-recipe-card` }
-                cardInfo={ (
-              { recipeName: drink.strDrink,
-                recipeImage: drink.strDrinkThumb,
-                index }
-                ) }
-              />
-            </Link>
-          ))}
+            ))
+            : drinksByCategory.map((drink, index) => (
+              <Link
+                key={ index }
+                to={ `${drink.idDrink}` }
+              >
+                <RecipeCard
+                  data-testid={ `${index}-recipe-card` }
+                  cardInfo={ (
+                { recipeName: drink.strDrink,
+                  recipeImage: drink.strDrinkThumb,
+                  index }
+                  ) }
+                />
+              </Link>
+            ))
+          }
       </div>
     </div>
   );

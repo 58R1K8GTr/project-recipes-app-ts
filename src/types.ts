@@ -165,9 +165,9 @@ export type ChildrenProp = {
 
 export type DataContextType = {
   meals: MealRecipeType[];
-  setMeals: (dataMeals: MealRecipeType[]) => void;
+  setMeals(dataMeals: MealRecipeType[]): void;
   drinks: DrinkRecipeType[];
-  setDrinks: (dataDrinks: DrinkRecipeType[]) => void;
+  setDrinks(dataDrinks: DrinkRecipeType[]): void;
   categories: CategoryType[];
-  setCategories: (categories: CategoryType[]) => void;
+  setCategories(categories: CategoryType[]): void;
 };

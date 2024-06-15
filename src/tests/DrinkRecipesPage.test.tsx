@@ -186,6 +186,7 @@ describe('Testa a página de drinks', () => {
 
   const searchRadioFirstLetter = 'first-letter-search-radio';
   const searchRadioName = 'name-search-radio';
+  const searchTopBtnText = 'search-top-btn';
 
   test('Renderiza a página e aguarda a API ser chamada.', async () => {
     const meal = await screen.findByTestId('0-recipe-card');
@@ -267,6 +268,10 @@ describe('Testa a página de drinks', () => {
       .mockResolvedValueOnce(MOCK_RESPONSE_3)
       .mockResolvedValueOnce(MOCK_RESPONSE_4);
 
+    const searchTopBtn = screen.getByTestId(searchTopBtnText);
+
+    await userEvent.click(searchTopBtn);
+
     const selectInput = screen.getByTestId(searchRadioName);
     const textInput = screen.getByTestId(testIdSearchInput);
     const buttonSearch = screen.getByTestId(testIdSearchButton);
@@ -280,6 +285,10 @@ describe('Testa a página de drinks', () => {
   test('Ao selecionar as opções corretas, recebe as refeições via first letter', async () => {
     const mockFetch = vi.spyOn(global, 'fetch').mockResolvedValueOnce(MOCK_RESPONSE_FIRST_LETTER);
 
+    const searchTopBtn = screen.getByTestId(searchTopBtnText);
+
+    await userEvent.click(searchTopBtn);
+
     const selectInput = screen.getByTestId(searchRadioFirstLetter);
     const textInput = screen.getByTestId(testIdSearchInput);
     const buttonSearch = screen.getByTestId(testIdSearchButton);
@@ -292,6 +301,10 @@ describe('Testa a página de drinks', () => {
   });
   test('Ao selecionar as opções corretas, recebe as refeições via ingredient', async () => {
     const mockFetch = vi.spyOn(global, 'fetch').mockResolvedValueOnce(MOCK_RESPONSE_INGREDIENT);
+
+    const searchTopBtn = screen.getByTestId(searchTopBtnText);
+
+    await userEvent.click(searchTopBtn);
 
     const selectInputIngredient = screen.getByTestId('ingredient-search-radio');
     const selectInputName = screen.getByTestId(searchRadioName);
@@ -325,6 +338,10 @@ describe('Testa a página de drinks', () => {
     const mockFetch = vi.spyOn(global, 'fetch').mockResolvedValueOnce(MOCK_RESPONSE_FIRST_LETTER);
     const mockAlert = vi.spyOn(window, 'alert').mockImplementation(() => {});
 
+    const searchTopBtn = screen.getByTestId(searchTopBtnText);
+
+    await userEvent.click(searchTopBtn);
+
     const selectInput = screen.getByTestId(searchRadioFirstLetter);
     const textInput = screen.getByTestId(testIdSearchInput);
     const buttonSearch = screen.getByTestId(testIdSearchButton);
@@ -339,6 +356,10 @@ describe('Testa a página de drinks', () => {
   test('Ao selecionar algo que não retorna nenhum resultado, recebe um alerta', async () => {
     vi.spyOn(global, 'fetch').mockResolvedValueOnce(MOCK_RESPONSE_NO_RESULTS);
     const mockAlert = vi.spyOn(window, 'alert').mockImplementation(() => {});
+
+    const searchTopBtn = screen.getByTestId(searchTopBtnText);
+
+    await userEvent.click(searchTopBtn);
 
     const selectInput = screen.getByTestId(searchRadioName);
     const textInput = screen.getByTestId(testIdSearchInput);

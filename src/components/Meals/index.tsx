@@ -7,8 +7,7 @@ import fetchFoodsByCategory from '../../utils/fetchFoodsByCategory';
 import DataContext from '../../context/DataContext';
 
 function Meals() {
-  const { setMeals, categories, setCategories } = useContext(DataContext);
-  const { meals } = useContext(DataContext);
+  const { meals, setMeals, categories, setCategories } = useContext(DataContext);
 
   const [selectedCategory, setSelectedCategory] = useState<string>('All');
   const [mealsByCategory, setMealsByCategory] = useState<MealRecipeType[]>([]);
