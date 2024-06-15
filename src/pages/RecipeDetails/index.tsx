@@ -1,10 +1,10 @@
+import './recipe-details.css';
 import React, { useEffect, useState } from 'react';
 import { Link, useParams } from 'react-router-dom';
-import RecommendationCard from '../../components/RecomendationCard';
+import RecommendedCarousel from '../../components/Carousel/index';
 import useFetchRecipeAndRecommendations from '../../hooks/useFetchRecipe';
 import { DoneRecipeType, Recipe } from '../../types';
 import StartRecipeButton from '../../components/StartRecipeButton';
-import './styles.css';
 
 function RecipeDetails() {
   const { id = '' } = useParams<{ id?: string }>();
@@ -12,7 +12,6 @@ function RecipeDetails() {
   const isMeal = window.location.pathname.includes('/meals');
   const {
     recipe,
-    recommendations,
     isLoading } = useFetchRecipeAndRecommendations(id, isMeal ? 'meals' : 'drinks');
 
   // Checks if the id is present in any of the 'doneRecipes' in localstorage
@@ -105,9 +104,7 @@ function RecipeDetails() {
           Recommended
           {isMeal ? 'Drinks' : 'Meals'}
         </h2>
-        {recommendations.slice(0, 6).map((item, index) => (
-          <RecommendationCard key={ `${id}-${index}` } item={ item } index={ index } />
-        ))}
+        <RecommendedCarousel />
       </div>
     </div>
   );

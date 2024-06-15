@@ -1,0 +1,8 @@
+.carousel-container {
+  display: grid;
+  grid-auto-columns: calc(100%/2);
+  grid-auto-flow: column;
+  max-width: 340px;
+  overflow-x: scroll;
+  overflow-y: hidden;
+}
