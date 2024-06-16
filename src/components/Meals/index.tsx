@@ -1,13 +1,14 @@
-import { useEffect, useState } from 'react';
+import { useContext, useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
 import useFetchMeals from '../../hooks/useFetchMeals';
-import { CategoryType, MealRecipeType } from '../../types';
+import { MealRecipeType } from '../../types';
 import RecipeCard from '../RecipeCard';
 import fetchFoodsByCategory from '../../utils/fetchFoodsByCategory';
+import DataContext from '../../context/DataContext';
 
 function Meals() {
-  const [meals, setMeals] = useState<MealRecipeType[]>([]);
-  const [categories, setCategories] = useState<CategoryType[]>([]);
+  const { meals, setMeals, categories, setCategories } = useContext(DataContext);
+
   const [selectedCategory, setSelectedCategory] = useState<string>('All');
   const [mealsByCategory, setMealsByCategory] = useState<MealRecipeType[]>([]);
 
@@ -16,12 +17,12 @@ function Meals() {
   useEffect(() => {
     setMeals(fetchedData.meals);
     setCategories(fetchedData.categories);
-  }, [fetchedData]);
+  }, [fetchedData, setMeals, setCategories]);
 
   useEffect(() => {
     if (selectedCategory !== 'All') {
       fetchFoodsByCategory(selectedCategory)
-        .then((data) => setMealsByCategory(data));
+        .then((dataResult) => setMealsByCategory(dataResult));
     }
   }, [selectedCategory]);
 
@@ -56,7 +57,7 @@ function Meals() {
       </div>
       <div>
         <h2>Meals</h2>
-        {selectedCategory === 'All'
+        { meals && selectedCategory === 'All'
           ? meals.map((meal, index) => (
             <Link
               to={ `${meal.idMeal}` }
