@@ -6,6 +6,7 @@ function DataProvider({ children }: ChildrenProp) {
   const [meals, setMeals] = useState<MealRecipeType[]>([]);
   const [drinks, setDrinks] = useState<DrinkRecipeType[]>([]);
   const [categories, setCategories] = useState<CategoryType[]>([]);
+  const [isUpdatedFavorites, setIsUpdatedFavorites] = useState<boolean>(false);
 
   const returnObject = {
     meals,
@@ -14,6 +15,8 @@ function DataProvider({ children }: ChildrenProp) {
     setDrinks,
     categories,
     setCategories,
+    isUpdatedFavorites,
+    setIsUpdatedFavorites,
   };
 
   return (
