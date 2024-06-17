@@ -15,7 +15,7 @@ function RecipeCard({ cardInfo }: { cardInfo: CardPropType }) {
         src={ recipeImage }
         data-testid={ `${index}-card-img` }
         alt=""
-        style={ { width: '100px' } }
+        style={ { width: '100%' } }
       />
       <p data-testid={ `${index}-card-name` }>{recipeName}</p>
     </div>
