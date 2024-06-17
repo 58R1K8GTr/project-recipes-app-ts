@@ -74,11 +74,15 @@ function FavoriteRecipes() {
       </div>
       {
        filteredRecipes.map((recipe, index) => (
-         <RecipeDisplayCard
-           recipe={ recipe }
-           index={ index }
+         <div
+           data-testid="recipe-card"
            key={ index }
-         />
+         >
+           <RecipeDisplayCard
+             recipe={ recipe }
+             index={ index }
+           />
+         </div>
        ))
     }
     </>
