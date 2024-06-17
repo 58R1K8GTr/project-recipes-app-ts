@@ -3,6 +3,7 @@ import { useContext } from 'react';
 import fetchApi from '../../utils/fetchAPI';
 import useApiData from '../../hooks/useApiData';
 import DataContext from '../../context/DataContext';
+import './styles.css';
 
 function SearchBar() {
   const navigate = useNavigate();
@@ -53,10 +54,11 @@ function SearchBar() {
         data-testid="search-input"
         onChange={ ({ target: { value } }) => setTextInput(value) }
         value={ textInput }
+        className="form-control mb-2"
       />
       <div>
-        <div>
-          <label htmlFor="ingredient-search-radio">
+        <div className="mb-2">
+          <label htmlFor="ingredient-search-radio" className="margin_right">
             Ingredient
             {' '}
             <input
@@ -67,9 +69,10 @@ function SearchBar() {
               value="ingredient"
               checked={ radioInput === 'ingredient' }
               onChange={ ({ target: { value } }) => setRadioInput(value) }
+              className="form-check-input"
             />
           </label>
-          <label htmlFor="name-search-radio">
+          <label htmlFor="name-search-radio" className="margin_right">
             Name
             {' '}
             <input
@@ -80,6 +83,7 @@ function SearchBar() {
               value="name"
               checked={ radioInput === 'name' }
               onChange={ ({ target: { value } }) => setRadioInput(value) }
+              className="form-check-input"
             />
           </label>
           <label htmlFor="first-letter-search-radio">
@@ -93,11 +97,13 @@ function SearchBar() {
               value="firstletter"
               checked={ radioInput === 'firstletter' }
               onChange={ ({ target: { value } }) => setRadioInput(value) }
+              className="form-check-input"
             />
           </label>
         </div>
         <button
           data-testid="exec-search-btn"
+          className="btn btn-outline-dark mb-2"
         >
           Search
         </button>

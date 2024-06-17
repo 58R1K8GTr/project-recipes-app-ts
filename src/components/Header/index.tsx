@@ -3,6 +3,7 @@ import { useState } from 'react';
 import profileIcon from '../../images/profileIcon.svg';
 import searchIcon from '../../images/searchIcon.svg';
 import SearchBar from '../SearchBar';
+import './style.css';
 
 function Header() {
   const [isHidden, setIsHidden] = useState(false);
@@ -14,22 +15,25 @@ function Header() {
 
   const noSearchIcon = () => {
     return (
-      <>
-        <Link to="/profile">
+      <div className="d-flex flex-row-reverse justify-content-between align-items-center">
+        <Link to="/profile" className="button-border">
           <img src={ profileIcon } alt="profileIcon" data-testid="profile-top-btn" />
         </Link>
-        <h1 data-testid="page-title">{getTitle()}</h1>
-      </>
+        <h1 data-testid="page-title" className="page-title">{getTitle()}</h1>
+      </div>
     );
   };
 
   const fullHeader = () => {
     return (
-      <header>
-        <button onClick={ () => setIsHidden(!isHidden) }>
+      <header className="header p-2">
+        {noSearchIcon()}
+        <button
+          className="button-search"
+          onClick={ () => setIsHidden(!isHidden) }
+        >
           <img src={ searchIcon } alt="searchIcon" data-testid="search-top-btn" />
         </button>
-        {noSearchIcon()}
         {
           isHidden && <SearchBar />
         }

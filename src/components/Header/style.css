@@ -1,0 +1,21 @@
+.header {
+  background-color: #ffc439;
+  border-radius: 0 0 24px 24px;
+  text-align: center;
+}
+
+.page-title {
+  margin: 0;
+}
+
+.button-search {
+  background-color: inherit;
+  border: none;
+  margin: 1rem 0;
+}
+
+.button-border {
+  border: 1px solid black;
+  border-radius: 50%;
+  padding: 5px;
+}
