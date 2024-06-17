@@ -1,9 +1,21 @@
 .login_page {
   align-items: center;
+  background-image: url('../../images/background.jpg');
+  background-position: 55%;
+  background-repeat: no-repeat;
+  background-size: cover;
+  color: white;
   display: flex;
   flex-direction: column;
-  height: 100vh;
+  height: 100svh;
   justify-content: center;
+}
+
+.overlay {
+  border-image-slice: fill 1;
+  border-image-source: linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5));
+  border-style: solid;
+  border-width: 0;
 }
 
 .login_page--title {
