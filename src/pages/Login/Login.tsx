@@ -18,9 +18,9 @@ function Login() {
   };
 
   return (
-    <div className="login_page">
+    <div className="login_page overlay">
       <img src="logo.svg" alt="" />
-      <h2 className="login_page--title">Faça seu Login</h2>
+      <h2 className="login_page--title">Login to your account</h2>
       <form onSubmit={ handleSubmit }>
         <div className="input_box">
           <label htmlFor="email">Email:</label>
@@ -31,10 +31,11 @@ function Login() {
             value={ email }
             data-testid="email-input"
             onChange={ ({ target }) => setEmail(target.value) }
+            className="form-control"
           />
         </div>
         <div className="input_box">
-          <label htmlFor="password">Senha:</label>
+          <label htmlFor="password">Password:</label>
           <input
             type="password"
             name="password"
@@ -42,12 +43,14 @@ function Login() {
             value={ password }
             data-testid="password-input"
             onChange={ ({ target }) => setPassword(target.value) }
+            className="form-control"
           />
         </div>
         <button
           type="submit"
           data-testid="login-submit-btn"
           disabled={ !isDisabled }
+          className="btn btn-primary"
         >
           Enter
         </button>
