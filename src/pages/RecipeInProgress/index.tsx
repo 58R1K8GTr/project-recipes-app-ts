@@ -3,21 +3,29 @@ import { useParams } from 'react-router-dom';
 import shareIcon from '../../images/shareIcon.svg';
 import whiteHeartIcon from '../../images/whiteHeartIcon.svg';
 import blackHeartIcon from '../../images/blackHeartIcon.svg';
-// import { Recipe } from '../../type';
 import useFetchRecipeAndRecommendations from '../../hooks/useFetchRecipe';
+import './recipe-in-progress.css';
 
-function RecipeInProgress(/* { recipe }:Recipe */) {
+function RecipeInProgress() {
   const { id = '' } = useParams<{ id?: string }>();
   const type = window.location.pathname.includes('/meals') ? 'meals' : 'drinks';
   const { recipe } = useFetchRecipeAndRecommendations(id, type);
-  // const { recipe } = useFetchRecipeAndRecommendations('52771', 'meals');
   const [isFavorited, setIsFavorited] = useState(false);
+  const [isChecked, setIsChecked] = useState(
+    new Array(20).fill(false),
+  );
 
   if (!recipe) {
     return <h1>Not Found</h1>;
   }
 
   const currentRecipe = recipe[type][0];
+
+  const handleOnChange = (position: number) => {
+    const updatedCheckedState = isChecked
+      .map((check, index) => (index === position ? !check : check));
+    setIsChecked(updatedCheckedState);
+  };
 
   const renderIngredients = () => {
     return Object.keys(currentRecipe)
@@ -27,8 +35,16 @@ function RecipeInProgress(/* { recipe }:Recipe */) {
         const measure = currentRecipe[`strMeasure${index + 1}`] || '';
         if (ingredient && ingredient.trim()) {
           return (
-            <label key={ index } data-testid={ `${index}-ingredient-step` }>
-              <input type="checkbox" />
+            <label
+              key={ index }
+              className={ isChecked[index] ? 'is-checked' : '' }
+              data-testid={ `${index}-ingredient-step` }
+            >
+              <input
+                type="checkbox"
+                checked={ isChecked[index] }
+                onChange={ () => handleOnChange(index) }
+              />
               {`${ingredient} - ${measure}`}
             </label>
           );
@@ -53,7 +69,7 @@ function RecipeInProgress(/* { recipe }:Recipe */) {
 
       <p data-testid="instructions">{currentRecipe.strInstructions}</p>
 
-      <div>
+      <div className="checkbox-container">
         {renderIngredients()}
       </div>
 
