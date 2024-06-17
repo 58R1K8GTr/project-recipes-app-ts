@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { useParams } from 'react-router-dom';
 import shareIcon from '../../images/shareIcon.svg';
 import whiteHeartIcon from '../../images/whiteHeartIcon.svg';
@@ -15,16 +15,35 @@ function RecipeInProgress() {
     new Array(20).fill(false),
   );
 
+  // Verify if there are recipes in progress and get checked checkboxes from localstorage.
+  useEffect(() => {
+    const checked = localStorage.getItem('inProgressRecipes');
+    const checkedHistory = checked ? JSON.parse(checked) : {};
+    if (checkedHistory[type] && checkedHistory[type][id]) {
+      setIsChecked(checkedHistory[type][id]);
+    }
+  }, []);
+
   if (!recipe) {
     return <h1>Not Found</h1>;
   }
 
   const currentRecipe = recipe[type][0];
 
+  // save checked checkbox in array and store them in localstorage.
+  // Example: { meals: { currentID: [true, false, ...] }, ... } (same for drinks);
   const handleOnChange = (position: number) => {
     const updatedCheckedState = isChecked
       .map((check, index) => (index === position ? !check : check));
     setIsChecked(updatedCheckedState);
+
+    const inProgressRecipes = JSON
+      .parse(localStorage.getItem('inProgressRecipes') || '{}');
+    inProgressRecipes[type] = {
+      ...inProgressRecipes[type],
+      [id]: updatedCheckedState,
+    };
+    localStorage.setItem('inProgressRecipes', JSON.stringify(inProgressRecipes));
   };
 
   const renderIngredients = () => {
