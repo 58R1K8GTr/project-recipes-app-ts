@@ -27,6 +27,7 @@ function Login() {
             value={ email }
             data-testid="email-input"
             onChange={ ({ target }) => setEmail(target.value) }
+            className="form-control"
           />
         </label>
         <label htmlFor="password">
@@ -37,12 +38,14 @@ function Login() {
             value={ password }
             data-testid="password-input"
             onChange={ ({ target }) => setPassword(target.value) }
+            className="form-control"
           />
         </label>
         <button
           type="submit"
           data-testid="login-submit-btn"
           disabled={ !isDisabled }
+          className="btn btn-success"
         >
           Enter
         </button>

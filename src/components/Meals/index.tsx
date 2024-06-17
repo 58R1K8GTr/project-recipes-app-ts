@@ -5,6 +5,7 @@ import { MealRecipeType } from '../../types';
 import RecipeCard from '../RecipeCard';
 import fetchFoodsByCategory from '../../utils/fetchFoodsByCategory';
 import DataContext from '../../context/DataContext';
+import './styles.css';
 
 function Meals() {
   const { meals, setMeals, categories, setCategories } = useContext(DataContext);
@@ -36,7 +37,7 @@ function Meals() {
   };
 
   return (
-    <div>
+    <div className="container">
       <div>
         <h2>Categories</h2>
         <button
@@ -57,35 +58,37 @@ function Meals() {
       </div>
       <div>
         <h2>Meals</h2>
-        { meals && selectedCategory === 'All'
-          ? meals.map((meal, index) => (
-            <Link
-              to={ `${meal.idMeal}` }
-              key={ index }
-            >
-              <RecipeCard
-                cardInfo={ (
+        <div className="recipes_grid">
+          { meals && selectedCategory === 'All'
+            ? meals.map((meal, index) => (
+              <Link
+                to={ `${meal.idMeal}` }
+                key={ index }
+              >
+                <RecipeCard
+                  cardInfo={ (
               { recipeName: meal.strMeal,
                 recipeImage: meal.strMealThumb,
                 index }
-                ) }
-              />
-            </Link>
-          ))
-          : mealsByCategory.map((meal, index) => (
-            <Link
-              to={ `${meal.idMeal}` }
-              key={ index }
-            >
-              <RecipeCard
-                cardInfo={ (
+                  ) }
+                />
+              </Link>
+            ))
+            : mealsByCategory.map((meal, index) => (
+              <Link
+                to={ `${meal.idMeal}` }
+                key={ index }
+              >
+                <RecipeCard
+                  cardInfo={ (
               { recipeName: meal.strMeal,
                 recipeImage: meal.strMealThumb,
                 index }
-                ) }
-              />
-            </Link>
-          ))}
+                  ) }
+                />
+              </Link>
+            ))}
+        </div>
       </div>
     </div>
   );
