@@ -20,6 +20,13 @@ function DoneRecipes() {
     }
   };
 
+  // const renderTopText = (recipe: Recipe) => {
+  //   if (recipe.idMeal) {
+  //     return `${recipe.nationality} - ${recipe.category}`;
+  //   }
+  //   return recipe.strAlcoholic || '';
+  // };
+
   return (
     <div>
       <div>
@@ -46,13 +53,13 @@ function DoneRecipes() {
         {filteredRecipes.map((recipe: Recipe, index: any) => (
           <div key={ index }>
             <img
-              src={ recipe.image }
-              alt={ recipe.name }
+              src={ recipe.image || recipe.strDrinkThumb }
+              alt={ recipe.name || recipe.strDrink }
               data-testid={ `${index}-horizontal-image` }
             />
             <p data-testid={ `${index}-horizontal-top-text` }>
               {`${recipe.nationality} - ${recipe.category}`}
-
+              {/* {renderTopText(recipe)} */}
             </p>
             <p data-testid={ `${index}-horizontal-name` }>{recipe.name}</p>
             <button>
