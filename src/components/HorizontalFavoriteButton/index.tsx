@@ -47,7 +47,7 @@ function HorizontalFavoriteButton({ isFavorite, id, testid }: FavoriteButtonProp
       <img
         data-testid={ testid }
         src={ isFavorited ? favoriteButton : notFavoriteButton }
-        alt={ isFavorited ? 'Unfavorite' : 'Favorite' }
+        alt="favoritar"
       />
     </button>
   );
