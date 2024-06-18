@@ -1,3 +1,5 @@
+import './styles.css';
+
 type CardPropType = {
   recipeName: string;
   recipeImage: string;
@@ -10,14 +12,22 @@ function RecipeCard({ cardInfo }: { cardInfo: CardPropType }) {
   return (
     <div
       data-testid={ `${index}-recipe-card` }
+      className="card bg-color recipe-card"
     >
       <img
         src={ recipeImage }
         data-testid={ `${index}-card-img` }
         alt=""
-        style={ { width: '100%' } }
+        className="card-img-top"
       />
-      <p data-testid={ `${index}-card-name` }>{recipeName}</p>
+
+      <p
+        data-testid={ `${index}-card-name` }
+        className="card-text m-1"
+      >
+        {recipeName}
+      </p>
+
     </div>
   );
 }

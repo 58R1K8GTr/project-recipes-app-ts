@@ -1,5 +1,8 @@
 import { useContext, useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
+import { LuBeef, LuCakeSlice } from 'react-icons/lu';
+import { MdOutlineBreakfastDining, MdOutlineFoodBank } from 'react-icons/md';
+import { GiChickenLeg, GiGoat } from 'react-icons/gi';
 import useFetchMeals from '../../hooks/useFetchMeals';
 import { MealRecipeType } from '../../types';
 import RecipeCard from '../RecipeCard';
@@ -36,34 +39,99 @@ function Meals() {
     }
   };
 
+  const getCategoryImage = (categoryName: string) => {
+    const selected = 'text-primary-color';
+
+    switch (categoryName) {
+      case 'Beef':
+        return (
+          <div>
+            <LuBeef
+              className={ selectedCategory === categoryName ? selected : '' }
+            />
+            <span className="category_text">{categoryName}</span>
+          </div>
+        );
+      case 'Breakfast':
+        return (
+          <div>
+            <MdOutlineBreakfastDining
+              className={ selectedCategory === categoryName ? selected : '' }
+            />
+            <span className="category_text">{categoryName}</span>
+          </div>
+        );
+      case 'Chicken':
+        return (
+          <div>
+            <GiChickenLeg
+              className={ selectedCategory === categoryName ? selected : '' }
+            />
+            <span className="category_text">{categoryName}</span>
+          </div>
+        );
+      case 'Dessert':
+        return (
+          <div>
+            <LuCakeSlice
+              className={ selectedCategory === categoryName ? selected : '' }
+            />
+            <span className="category_text">{categoryName}</span>
+          </div>
+        );
+      case 'Goat':
+        return (
+          <div>
+            <GiGoat
+              className={ selectedCategory === categoryName ? selected : '' }
+            />
+            <span className="category_text">{categoryName}</span>
+          </div>
+        );
+      default:
+        return (
+          <div>
+            <MdOutlineFoodBank
+              className={ selectedCategory === categoryName ? selected : '' }
+            />
+            <span className="category_text">{categoryName}</span>
+          </div>
+        );
+    }
+  };
+
   return (
     <div className="container">
-      <div>
-        <h2>Categories</h2>
-        <button
-          data-testid="All-category-filter"
-          onClick={ () => handleCategoryChange('All') }
-        >
-          All
-        </button>
-        {categories && categories.map((category, index) => (
+      <div className="categories_grid">
+        <h4>Categories</h4>
+        <div className="categories_wrapper">
           <button
-            key={ index }
-            data-testid={ `${category.strCategory}-category-filter` }
-            onClick={ () => handleCategoryChange(category.strCategory) }
+            data-testid="All-category-filter"
+            onClick={ () => handleCategoryChange('All') }
+            className="category_button"
           >
-            {category.strCategory}
+            {getCategoryImage('All')}
           </button>
-        ))}
+          {categories && categories.map((category, index) => (
+            <button
+              key={ index }
+              data-testid={ `${category.strCategory}-category-filter` }
+              onClick={ () => handleCategoryChange(category.strCategory) }
+              className="category_button"
+            >
+              {getCategoryImage(category.strCategory)}
+            </button>
+          ))}
+        </div>
       </div>
       <div>
-        <h2>Meals</h2>
         <div className="recipes_grid">
           { meals && selectedCategory === 'All'
             ? meals.map((meal, index) => (
               <Link
                 to={ `${meal.idMeal}` }
                 key={ index }
+                className="recipe-link"
               >
                 <RecipeCard
                   cardInfo={ (
@@ -78,6 +146,7 @@ function Meals() {
               <Link
                 to={ `${meal.idMeal}` }
                 key={ index }
+                className="recipe-link"
               >
                 <RecipeCard
                   cardInfo={ (
