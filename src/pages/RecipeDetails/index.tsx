@@ -69,7 +69,6 @@ function RecipeDetails() {
               />
             </div>
             <HorizontalShareButton
-              index={ 0 }
               copyInfo={ { recipeType: type, recipeId: id } }
               setIsCopied={ setIsCopied }
               testid="share-btn"
