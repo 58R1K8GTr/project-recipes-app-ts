@@ -1,21 +1,31 @@
 .header {
-  background-color: #ffc439;
+  background-color: #106e87;
   border-radius: 0 0 24px 24px;
   text-align: center;
 }
 
-.page-title {
+.header_link {
+  color: inherit;
+  text-decoration: none;
+}
+
+.header_title {
   margin: 0;
 }
 
-.button-search {
-  background-color: inherit;
-  border: none;
-  margin: 1rem 0;
+.header_buttons {
+  font-size: 2rem;
 }
 
-.button-border {
-  border: 1px solid black;
-  border-radius: 50%;
-  padding: 5px;
+.search_button {
+  background-color: transparent;
+  border: none;
+  color: inherit;
+  cursor: pointer;
+  font-size: 2.3rem;
+  margin-right: 10px;
+}
+
+.profile_icon {
+  color: inherit;
 }
