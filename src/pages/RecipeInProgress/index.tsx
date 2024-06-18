@@ -26,7 +26,7 @@ function RecipeInProgress() {
     if (checkedHistory[type] && checkedHistory[type][id]) {
       setIsChecked(checkedHistory[type][id]);
     }
-  }, [recipe, type]);
+  }, [recipe, type, id]);
 
   if (!recipe || !recipe[type]) {
     return <h1>Not Found</h1>;
