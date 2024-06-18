@@ -50,7 +50,7 @@ function Login() {
           type="submit"
           data-testid="login-submit-btn"
           disabled={ !isDisabled }
-          className="btn btn-primary"
+          className="btn-like-bootstrap"
         >
           Enter
         </button>

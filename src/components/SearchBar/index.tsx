@@ -47,7 +47,7 @@ function SearchBar() {
 
   // segui o padrão do projeto, deveria eu ter criado um componente somente para o input?
   return (
-    <form onSubmit={ handleSubmit }>
+    <form onSubmit={ handleSubmit } className="mt-3">
       <input
         type="text"
         placeholder="Search"
@@ -103,7 +103,7 @@ function SearchBar() {
         </div>
         <button
           data-testid="exec-search-btn"
-          className="btn btn-outline-dark mb-2"
+          className="btn-like-bootstrap mb-2"
         >
           Search
         </button>
