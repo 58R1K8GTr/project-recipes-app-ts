@@ -15,7 +15,7 @@ function RecipeInProgress() {
     new Array(20).fill(false),
   );
 
-  // Verify if there are recipes in progress and get checked checkboxes from localstorage.
+  // Verify if there are recipes in progress and get checked checkboxes from localStorage.
   useEffect(() => {
     const checked = localStorage.getItem('inProgressRecipes');
     const checkedHistory = checked ? JSON.parse(checked) : {};
