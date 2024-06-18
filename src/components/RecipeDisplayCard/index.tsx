@@ -55,14 +55,14 @@ function RecipeDisplayCard({
         <div className="recipe_buttons">
           <div>
             <HorizontalShareButton
-              index={ index }
+              testid={ `${index}-horizontal-share-btn` } // inseri data testid
               copyInfo={ { recipeType, recipeId } }
               setIsCopied={ setIsCopied }
             />
             <HorizontalFavoriteButton
-              index={ index }
               isFavorite
               id={ recipe.id }
+              testid={ `${index}-horizontal-favorite-btn` } // inseri data testid
             />
             {isCopied && <span>Link copied!</span> }
           </div>
