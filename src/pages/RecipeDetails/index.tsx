@@ -6,7 +6,7 @@ import useFetchRecipeAndRecommendations from '../../hooks/useFetchRecipe';
 import { DoneRecipeType, Recipe } from '../../types';
 import StartRecipeButton from '../../components/StartRecipeButton';
 import HorizontalFavoriteButton from '../../components/HorizontalFavoriteButton';
-import shareIcon from '../../images/shareIcon.svg';
+import HorizontalShareButton from '../../components/HorizontalShareButton';
 
 function RecipeDetails() {
   const { id = '' } = useParams<{ id?: string }>();
@@ -20,6 +20,7 @@ function RecipeDetails() {
   // Also checks if the id is present in any of 'inProgressRecipes' in localstorage
   const [isDoneRecipe, setIsDoneRecipe] = useState(false);
   const [status, setStatus] = useState('Start');
+  const [isCopied, setIsCopied] = useState(false);
 
   useEffect(() => {
     const storedRecipeJSON = localStorage.getItem('doneRecipes');
@@ -62,18 +63,18 @@ function RecipeDetails() {
           <div>
             <div>
               <HorizontalFavoriteButton
-                isFavorite
-                id=""
+                isFavorite={ false }
+                id={ id }
                 testid="favorite-btn"
               />
             </div>
-            <button>
-              <img
-                data-testid="share-btn"
-                src={ shareIcon }
-                alt="Share"
-              />
-            </button>
+            <HorizontalShareButton
+              index={ 0 }
+              copyInfo={ { recipeType: type, recipeId: id } }
+              setIsCopied={ setIsCopied }
+              testid="share-btn"
+            />
+            {isCopied && <span>Link copied!</span>}
           </div>
         </div>
       )}
