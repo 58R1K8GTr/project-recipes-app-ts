@@ -5,6 +5,8 @@ import RecommendedCarousel from '../../components/Carousel/index';
 import useFetchRecipeAndRecommendations from '../../hooks/useFetchRecipe';
 import { DoneRecipeType, Recipe } from '../../types';
 import StartRecipeButton from '../../components/StartRecipeButton';
+import HorizontalFavoriteButton from '../../components/HorizontalFavoriteButton';
+import shareIcon from '../../images/shareIcon.svg';
 
 function RecipeDetails() {
   const { id = '' } = useParams<{ id?: string }>();
@@ -53,9 +55,27 @@ function RecipeDetails() {
     <div className="recipe-details">
       {!isDoneRecipe
       && (
-        <Link to={ `/${type}/${id}/in-progress` }>
-          <StartRecipeButton text={ status } />
-        </Link>
+        <div>
+          <Link to={ `/${type}/${id}/in-progress` }>
+            <StartRecipeButton text={ status } />
+          </Link>
+          <div>
+            <div>
+              <HorizontalFavoriteButton
+                isFavorite
+                id=""
+                testid="favorite-btn"
+              />
+            </div>
+            <button>
+              <img
+                data-testid="share-btn"
+                src={ shareIcon }
+                alt="Share"
+              />
+            </button>
+          </div>
+        </div>
       )}
       {recipeData && recipeData.map((recipeInfo: Recipe, index: number) => (
         <div key={ index }>
