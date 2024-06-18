@@ -127,6 +127,7 @@ export type Recipe = {
   strAlcoholic?: string;
   strInstructions?: string;
   strYoutube?: string;
+  type: string;
   [key: string]: any;
 };
 
