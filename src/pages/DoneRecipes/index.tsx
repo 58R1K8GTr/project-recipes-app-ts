@@ -3,11 +3,11 @@ import shareIcon from '../../images/shareIcon.svg';
 import { Recipe } from '../../types';
 
 function DoneRecipes() {
-  const [doneRecipes, setDoneRecipes] = useState<Recipe>([]);
-  const [filteredRecipes, setFilteredRecipes] = useState<Recipe>([]);
+  const [doneRecipes, setDoneRecipes] = useState<Recipe[]>([]);
+  const [filteredRecipes, setFilteredRecipes] = useState<Recipe[]>([]);
 
   useEffect(() => {
-    const recipes = JSON.parse(localStorage.getItem('doneRecipes') || '[]') as Recipe;
+    const recipes = JSON.parse(localStorage.getItem('doneRecipes') || '[]') as Recipe[];
     setDoneRecipes(recipes);
     setFilteredRecipes(recipes);
   }, []);
