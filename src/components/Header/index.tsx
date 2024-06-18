@@ -48,8 +48,15 @@ function Header() {
                 onClick={ () => setIsHidden(!isHidden) }
               >
                 {!isHidden
-                  ? <img data-testid="search-top-btn" src={ searchIcon } alt="" />
-                  : <IoClose data-testid="search-top-btn" />}
+                  ? <img
+                      data-testid="search-top-btn"
+                      src={ searchIcon }
+                      alt=""
+                  />
+                  : <IoClose
+                      data-testid="search-top-btn"
+                      className="text-primary-color close-btn"
+                  />}
               </button>
             )
           }

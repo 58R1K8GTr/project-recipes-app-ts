@@ -20,12 +20,15 @@
 .search_button {
   background-color: transparent;
   border: none;
-  color: inherit;
   cursor: pointer;
   font-size: 2.3rem;
-  margin-right: 10px;
+  margin-right: 1rem;
 }
 
 .profile_icon {
   color: inherit;
+}
+
+.close-btn {
+  font-size: 3rem;
 }
