@@ -57,10 +57,8 @@ function SearchBar() {
         className="form-control mb-2"
       />
       <div>
-        <div className="mb-2">
+        <div className="mb-2 mt-3">
           <label htmlFor="ingredient-search-radio" className="margin_right">
-            Ingredient
-            {' '}
             <input
               type="radio"
               name="filter"
@@ -71,10 +69,10 @@ function SearchBar() {
               onChange={ ({ target: { value } }) => setRadioInput(value) }
               className="form-check-input"
             />
+            {' '}
+            Ingredient
           </label>
           <label htmlFor="name-search-radio" className="margin_right">
-            Name
-            {' '}
             <input
               type="radio"
               name="filter"
@@ -85,10 +83,11 @@ function SearchBar() {
               onChange={ ({ target: { value } }) => setRadioInput(value) }
               className="form-check-input"
             />
+            {' '}
+            Name
           </label>
           <label htmlFor="first-letter-search-radio">
-            First letter
-            {' '}
+
             <input
               type="radio"
               name="filter"
@@ -99,11 +98,13 @@ function SearchBar() {
               onChange={ ({ target: { value } }) => setRadioInput(value) }
               className="form-check-input"
             />
+            {' '}
+            First letter
           </label>
         </div>
         <button
           data-testid="exec-search-btn"
-          className="btn-like-bootstrap mb-2"
+          className="btn-like-bootstrap mb-2 mt-2"
         >
           Search
         </button>
