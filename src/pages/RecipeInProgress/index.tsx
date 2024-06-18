@@ -12,10 +12,17 @@ function RecipeInProgress() {
   const type = window.location.pathname.includes('/meals') ? 'meals' : 'drinks';
   const { recipe } = useFetchRecipeAndRecommendations(id, type);
   const [isFavorited, setIsFavorited] = useState(false);
-  const [isChecked, setIsChecked] = useState<boolean[]>([]);
+  const [isChecked, setIsChecked] = useState(
+    new Array(recipe?.length).fill(false),
+  );
   const [allChecked, setAllChecked] = useState(false);
 
   useEffect(() => {
+    const checked = localStorage.getItem('inProgressRecipes');
+    const checkedHistory = checked ? JSON.parse(checked) : {};
+    if (checkedHistory[type] && checkedHistory[type][id]) {
+      setIsChecked(checkedHistory[type][id]);
+    }
     if (recipe) {
       const currentRecipe = recipe[type][0];
       const ingredients = Object.keys(currentRecipe)
@@ -35,10 +42,19 @@ function RecipeInProgress() {
 
   const currentRecipe = recipe[type][0];
 
+  // save checked checkbox in array and store them in localstorage.
+  // Example: { meals: { currentID: [true, false, ...] }, ... } (same for drinks);
   const handleOnChange = (position: number) => {
     const updatedCheckedState = isChecked
       .map((check, index) => (index === position ? !check : check));
     setIsChecked(updatedCheckedState);
+    const inProgressRecipes = JSON
+      .parse(localStorage.getItem('inProgressRecipes') || '{}');
+    inProgressRecipes[type] = {
+      ...inProgressRecipes[type],
+      [id]: updatedCheckedState,
+    };
+    localStorage.setItem('inProgressRecipes', JSON.stringify(inProgressRecipes));
   };
 
   const handleFinishRecipe = () => {
