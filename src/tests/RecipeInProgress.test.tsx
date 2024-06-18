@@ -2,8 +2,9 @@ import { screen, waitForElementToBeRemoved } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
 import { vi } from 'vitest';
 import { renderWithRouter } from '../utils/renderWithRouter';
-import RecipeInProgress from '../pages/RecipeInProgress';
+// import RecipeInProgress from '../pages/RecipeInProgress';
 import data from './helpers/mockDataSearchByMealNameArrabiata.json';
+import App from '../App';
 
 const MOCK_RESPONSE = {
   ok: true,
@@ -16,7 +17,7 @@ describe('Testa a Página In Progress', () => {
     vi.spyOn(global, 'fetch')
       .mockResolvedValueOnce(MOCK_RESPONSE);
 
-    renderWithRouter((<RecipeInProgress />), { route: '/meals/52771/in-progress' });
+    renderWithRouter((<App />), { route: '/meals/52771/in-progress' });
 
     await waitForElementToBeRemoved(() => screen.getByRole('heading', { name: /not found/i }));
 
