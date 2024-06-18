@@ -11,6 +11,7 @@ import HorizontalShareButton from '../../components/HorizontalShareButton';
 function RecipeDetails() {
   const { id = '' } = useParams<{ id?: string }>();
   const type = window.location.pathname.includes('/meals') ? 'meals' : 'drinks';
+  const type2 = window.location.pathname.includes('/meals') ? 'meal' : 'drink';
   const isMeal = window.location.pathname.includes('/meals');
   const {
     recipe,
@@ -69,7 +70,7 @@ function RecipeDetails() {
               />
             </div>
             <HorizontalShareButton
-              copyInfo={ { recipeType: type, recipeId: id } }
+              copyInfo={ { recipeType: type2, recipeId: id } }
               setIsCopied={ setIsCopied }
               testid="share-btn"
             />
