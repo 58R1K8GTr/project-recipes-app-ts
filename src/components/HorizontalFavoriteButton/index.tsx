@@ -5,13 +5,13 @@ import DataContext from '../../context/DataContext';
 import { FavoriteRecipeType } from '../../types';
 
 type FavoriteButtonProps = {
-  index: number;
   isFavorite: boolean;
   id: string;
+  testid: string; // inseri testid como prop
 };
 
 function HorizontalFavoriteButton({
-  index, isFavorite, id }: FavoriteButtonProps) {
+  isFavorite, id, testid }: FavoriteButtonProps) {
   const { setIsUpdatedFavorites } = useContext(DataContext);
   const getFavorites = localStorage.getItem('favoriteRecipes');
 
@@ -29,7 +29,7 @@ function HorizontalFavoriteButton({
   return (
     <button onClick={ addOrRemoveFromFavorites }>
       <img
-        data-testid={ `${index}-horizontal-favorite-btn` }
+        data-testid={ testid } // testid dinamico
         src={ isFavorite ? favoriteButton : notFavoriteButton }
         alt="Favorite"
       />
