@@ -37,6 +37,9 @@ function RecipeDetails() {
 
     if (storedStatusJSON) {
       const statusOfRecipe = JSON.parse(storedStatusJSON);
+
+      if (!statusOfRecipe[type]) return;
+
       const isStarted = id in statusOfRecipe[type];
 
       if (isStarted) {
@@ -47,9 +50,7 @@ function RecipeDetails() {
 
   if (isLoading) return <div>Loading...</div>;
 
-  if (!recipe) { return <h1>NOT FOUND</h1>; }
-
-  if (recipe[type] === null) { return <h1>NOT FOUND</h1>; }
+  if (!recipe || recipe[type] === null) { return <h1>NOT FOUND</h1>; }
 
   const recipeData = recipe[type];
 
