@@ -66,43 +66,49 @@ function RecipeDetails() {
             src={ isMeal ? recipeInfo.strMealThumb : recipeInfo.strDrinkThumb }
             alt={ isMeal ? recipeInfo.strMeal : recipeInfo.strDrink }
           />
-          <h1 data-testid="recipe-title">
-            {isMeal ? recipeInfo.strMeal : recipeInfo.strDrink}
-          </h1>
-          <p data-testid="recipe-category">
-            {isMeal ? recipeInfo.strCategory : recipeInfo.strAlcoholic}
-          </p>
-          <ul>
-            {Object.keys(recipeInfo)
-              .filter((key) => key.includes('Ingredient') && recipeInfo[key])
-              .map((key, ingredientIndex) => (
-                <li
-                  key={ `${key}-${index}` }
-                  data-testid={ `${ingredientIndex}-ingredient-name-and-measure` }
-                >
-                  {recipeInfo[key]}
-                  {' '}
-                  -
-                  {recipeInfo[`strMeasure${key.match(/\d+/)}`]}
-                </li>
-              ))}
-          </ul>
-          <p data-testid="instructions">{recipeInfo.strInstructions}</p>
-          {isMeal && recipeInfo.strYoutube && (
-            <iframe
-              data-testid="video"
-              title="Recipe Video"
-              width="100%"
-              height="315"
-              src={ `https://www.youtube.com/embed/${recipeInfo.strYoutube.split('v=')[1]}` }
-              allowFullScreen
-            />
-          )}
+          <div className="container mt-3">
+            <Link to={ `/${type}` } className="return_link">
+              <p>return to list</p>
+            </Link>
+            <h1 data-testid="recipe-title">
+              {isMeal ? recipeInfo.strMeal : recipeInfo.strDrink}
+            </h1>
+            <p data-testid="recipe-category">
+              {isMeal ? recipeInfo.strCategory : recipeInfo.strAlcoholic}
+            </p>
+            <ul>
+              {Object.keys(recipeInfo)
+                .filter((key) => key.includes('Ingredient') && recipeInfo[key])
+                .map((key, ingredientIndex) => (
+                  <li
+                    key={ `${key}-${index}` }
+                    data-testid={ `${ingredientIndex}-ingredient-name-and-measure` }
+                  >
+                    {recipeInfo[key]}
+                    {' '}
+                    -
+                    {recipeInfo[`strMeasure${key.match(/\d+/)}`]}
+                  </li>
+                ))}
+            </ul>
+            <p data-testid="instructions">{recipeInfo.strInstructions}</p>
+            {isMeal && recipeInfo.strYoutube && (
+              <iframe
+                data-testid="video"
+                title="Recipe Video"
+                width="100%"
+                height="315"
+                src={ `https://www.youtube.com/embed/${recipeInfo.strYoutube.split('v=')[1]}` }
+                allowFullScreen
+              />
+            )}
+          </div>
         </div>
       ))}
       <div className="recommendations">
-        <h2>
+        <h2 className="mt-4 mb-4">
           Recommended
+          {' '}
           {isMeal ? 'Drinks' : 'Meals'}
         </h2>
         <RecommendedCarousel />
