@@ -18,36 +18,22 @@ const MOCK_RESPONSE_2 = {
   json: async () => DRINK_DATA,
 } as Response;
 
-// const MOCK_MEAL = [
-//   {
-//     id: '52771',
-//     type: 'meal',
-//     nationality: 'Italian',
-//     category: 'Vegetarian',
-//     alcoholicOrNot: '',
-//     name: 'Spicy Arrabiata Penne',
-//     image: 'https://www.themealdb.com/images/media/meals/ustsqw1468250014.jpg',
-//     doneDate: '2024-06-18T15:29:03.104Z',
-//     tags: [
-//       'Pasta',
-//       'Curry',
-//     ],
-//   },
-// ];
-
-// const MOCK_DRINK = [
-//   {
-//     id: '17222',
-//     type: 'drink',
-//     nationality: '',
-//     category: 'Cocktail',
-//     alcoholicOrNot: 'Alcoholic',
-//     name: 'A1',
-//     image: 'https://www.thecocktaildb.com/images/media/drink/2x8thr1504816928.jpg',
-//     doneDate: '2024-06-18T15:48:35.872Z',
-//     tags: [],
-//   },
-// ];
+const MOCK_LOCALSTORAGE_DRINK = [
+  {
+    id: '11007',
+    type: 'drink',
+    nationality: '',
+    category: 'Ordinary Drink',
+    alcoholicOrNot: 'Alcoholic',
+    name: 'Margarita',
+    image: 'https://www.thecocktaildb.com/images/media/drink/5noda61589575158.jpg',
+    doneDate: '2024-06-18T17:53:09.155Z',
+    tags: [
+      'IBA',
+      'ContemporaryClassic',
+    ],
+  },
+];
 
 const MOCK_MEAL_ROUTE = '/meals/52771/in-progress';
 
@@ -118,6 +104,9 @@ describe('Tests Meals on "Recipe in progress" Page', () => {
 });
 
 describe('Tests Drinks on "Recipe in progressq" Page', () => {
+  afterEach(() => {
+    localStorage.clear();
+  });
   test('Test if Finish Recipe Button is enabled after checking all checkboxes,', async () => {
     vi.spyOn(global, 'fetch')
       .mockResolvedValueOnce(MOCK_RESPONSE_2);
@@ -134,5 +123,9 @@ describe('Tests Drinks on "Recipe in progressq" Page', () => {
     await userEvent.click(allCheckBoxes[3]);
 
     expect(finishRecipeButton).not.toBeDisabled();
+
+    await userEvent.click(finishRecipeButton);
+
+    localStorage.setItem('doneRecipes', JSON.stringify(MOCK_LOCALSTORAGE_DRINK));
   });
 });
