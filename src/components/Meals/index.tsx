@@ -108,7 +108,7 @@ function Meals() {
           <button
             data-testid="All-category-filter"
             onClick={ () => handleCategoryChange('All') }
-            className="category_button"
+            className="category_button button_all"
           >
             {getCategoryImage('All')}
           </button>
