@@ -1,4 +1,4 @@
-import { useContext } from 'react';
+import { useContext, useState, useEffect } from 'react';
 import favoriteButton from '../../images/blackHeartIcon.svg';
 import notFavoriteButton from '../../images/whiteHeartIcon.svg';
 import DataContext from '../../context/DataContext';
@@ -7,31 +7,47 @@ import { FavoriteRecipeType } from '../../types';
 type FavoriteButtonProps = {
   isFavorite: boolean;
   id: string;
-  testid: string; // inseri testid como prop
+  testid: string;
 };
 
-function HorizontalFavoriteButton({
-  isFavorite, id, testid }: FavoriteButtonProps) {
+function HorizontalFavoriteButton({ isFavorite, id, testid }: FavoriteButtonProps) {
   const { setIsUpdatedFavorites } = useContext(DataContext);
-  const getFavorites = localStorage.getItem('favoriteRecipes');
+  const [isFavorited, setIsFavorited] = useState(isFavorite);
+
+  useEffect(() => {
+    setIsFavorited(isFavorite);
+  }, [isFavorite]);
 
   function addOrRemoveFromFavorites() {
-    if (getFavorites) {
-      const favoriteList = JSON.parse(getFavorites);
-      const newFavorites = favoriteList
-        .filter((favorite: FavoriteRecipeType) => favorite.id !== id);
+    const getFavorites = localStorage.getItem('favoriteRecipes');
+    let favoriteList: FavoriteRecipeType[] = getFavorites ? JSON.parse(getFavorites) : [];
 
-      localStorage.setItem('favoriteRecipes', JSON.stringify(newFavorites));
-      setIsUpdatedFavorites(true);
+    if (isFavorited) {
+      favoriteList = favoriteList.filter((favorite) => favorite.id !== id);
+    } else {
+      const newFavorite: FavoriteRecipeType = {
+        id,
+        type: window.location.pathname.includes('/meals') ? 'meal' : 'drink',
+        nationality: '',
+        category: '',
+        alcoholicOrNot: '',
+        name: '',
+        image: '',
+      };
+      favoriteList.push(newFavorite);
     }
+
+    localStorage.setItem('favoriteRecipes', JSON.stringify(favoriteList));
+    setIsFavorited(!isFavorited);
+    setIsUpdatedFavorites(true);
   }
 
   return (
     <button onClick={ addOrRemoveFromFavorites }>
       <img
-        data-testid={ testid } // testid dinamico
-        src={ isFavorite ? favoriteButton : notFavoriteButton }
-        alt="Favorite"
+        data-testid={ testid }
+        src={ isFavorited ? favoriteButton : notFavoriteButton }
+        alt={ isFavorited ? 'Unfavorite' : 'Favorite' }
       />
     </button>
   );
