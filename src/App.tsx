@@ -1,6 +1,6 @@
-import React from 'react';
-import './App.css';
 import 'bootstrap/dist/css/bootstrap.min.css';
+import './App.css';
+import './custom.css';
 import { Routes, Route } from 'react-router-dom';
 import Login from './pages/Login/Login';
 import Profile from './pages/Profile';

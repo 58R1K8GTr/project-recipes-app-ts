@@ -18,12 +18,15 @@ function RecipeDisplayCard({
   return (
     <div className="d-flex">
       <div className="left_side">
-        <a href={ `/${recipeType}s/${recipeId}` }>
+        <a
+          href={ `/${recipeType}s/${recipeId}` }
+          aria-label={ `View ${recipe.name}` }
+        >
           <img
             style={ { width: '100px' } }
             data-testid={ `${index}-horizontal-image` }
             src={ recipe.image }
-            alt=""
+            alt={ `${recipe.name}` }
           />
         </a>
       </div>
