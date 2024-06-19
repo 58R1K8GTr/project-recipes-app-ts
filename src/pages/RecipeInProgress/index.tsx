@@ -109,18 +109,27 @@ function RecipeInProgress() {
             <p>return to list</p>
           </a>
           <div>
+            <HorizontalFavoriteButton
+              recipeDetails={ {
+                id,
+                type: type2,
+                nationality: isMeal ? currentRecipe.strArea as string : '',
+                category: currentRecipe.strCategory,
+                alcoholicOrNot: isMeal ? '' : currentRecipe.strAlcoholic,
+                name: isMeal ? currentRecipe.strMeal : currentRecipe.strDrink,
+                image: isMeal
+                  ? currentRecipe.strMealThumb : currentRecipe.strDrinkThumb,
+              } }
+              isFavorite={ false }
+              id={ id }
+              testid="favorite-btn"
+            />
             <HorizontalShareButton
               copyInfo={ { recipeType: type2, recipeId: id } }
               setIsCopied={ setIsCopied }
               testid="share-btn"
             />
-            {isCopied
-                && (
-                  <span>
-                    {' '}
-                    Link copied!
-                  </span>
-                )}
+            {isCopied && <span>Link copied!</span>}
           </div>
         </div>
         <h1 data-testid="recipe-title">{currentRecipe.strMeal}</h1>
@@ -131,31 +140,6 @@ function RecipeInProgress() {
         <div className="checkbox-container">
           {renderIngredients()}
         </div>
-
-        <div>
-          <HorizontalShareButton
-            copyInfo={ { recipeType: type2, recipeId: id } }
-            setIsCopied={ setIsCopied }
-            testid="share-btn"
-          />
-          {isCopied && <span>Link copied!</span>}
-          <HorizontalFavoriteButton
-            recipeDetails={ {
-              id,
-              type: type2,
-              nationality: isMeal ? currentRecipe.strArea as string : '',
-              category: currentRecipe.strCategory,
-              alcoholicOrNot: isMeal ? '' : currentRecipe.strAlcoholic,
-              name: isMeal ? currentRecipe.strMeal : currentRecipe.strDrink,
-              image: isMeal
-                ? currentRecipe.strMealThumb : currentRecipe.strDrinkThumb,
-            } }
-            isFavorite={ false }
-            id={ id }
-            testid="favorite-btn"
-          />
-        </div>
-
         <button
           data-testid="finish-recipe-btn"
           disabled={ !isChecked.every((check) => check) }
