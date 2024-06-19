@@ -30,7 +30,7 @@ function RecipeInProgress() {
   }, [recipe, type, id]);
 
   if (!recipe || !recipe[type]) {
-    return <h1>Not Found</h1>;
+    return <h1>Loading...</h1>;
   }
   const currentRecipe = recipe[type][0];
 
