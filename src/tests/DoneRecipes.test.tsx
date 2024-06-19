@@ -30,7 +30,7 @@ describe('Testando a página done-recipes', () => {
     expect(image.alt).toBe('Spicy Arrabiata Penne');
     expect(horizontalTopText.textContent).toBe(horizontalTopTextContent0);
     expect(horizontalName.textContent).toBe('Spicy Arrabiata Penne');
-    expect(horizontalDoneDate.textContent).toBe('06/19/2024');
+    expect(horizontalDoneDate.textContent).toBe('23/06/2020');
     expect(pastaHorizontalTag.textContent).toBe('Pasta');
     expect(curryHorizontalTag.textContent).toBe('Curry');
   });
@@ -47,7 +47,7 @@ describe('Testando a página done-recipes', () => {
     expect(image2.alt).toBe('Aquamarine');
     expect(horizontalTopText2.textContent).toBe(horizontalTopTextContent1);
     expect(horizontalName2.textContent).toBe('Aquamarine');
-    expect(horizontalDoneDate2.textContent).toBe('06/19/2024');
+    expect(horizontalDoneDate2.textContent).toBe('23/06/2020');
   });
   test('Ao iniciar a página os dados do drink e meal estão filtrando por "All"', async () => {
     localStorage.setItem('doneRecipes', JSON.stringify(mocksRecipeLocalStorage));
