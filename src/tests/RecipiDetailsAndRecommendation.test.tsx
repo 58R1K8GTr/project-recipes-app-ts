@@ -123,7 +123,7 @@ describe('Testar os drinks.', () => {
     screen.debug();
 
     expect(drinkTitle).toHaveTextContent('Margarita');
-    expect(recipeCategory).toHaveTextContent('Ordinary Drink');
+    expect(recipeCategory).toHaveTextContent('Alcoholic');
     expect(instructions).toHaveTextContent('Rub the rim of the glass with the lime');
   });
 });
