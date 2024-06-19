@@ -1,18 +1,19 @@
 import React, { useEffect, useState } from 'react';
 import { useNavigate, useParams } from 'react-router-dom';
-import shareIcon from '../../images/shareIcon.svg';
-import whiteHeartIcon from '../../images/whiteHeartIcon.svg';
-import blackHeartIcon from '../../images/blackHeartIcon.svg';
 import useFetchRecipeAndRecommendations from '../../hooks/useFetchRecipe';
 import './recipe-in-progress.css';
+import HorizontalShareButton from '../../components/HorizontalShareButton';
+import HorizontalFavoriteButton from '../../components/HorizontalFavoriteButton';
 
 function RecipeInProgress() {
   const { id = '' } = useParams<{ id?: string }>();
   const navigate = useNavigate();
   const type = window.location.pathname.includes('/meals') ? 'meals' : 'drinks';
+  const type2 = window.location.pathname.includes('/meals') ? 'meal' : 'drink';
+  const isMeal = window.location.pathname.includes('/meals');
   const { recipe } = useFetchRecipeAndRecommendations(id, type);
-  const [isFavorited, setIsFavorited] = useState(false);
   const [isChecked, setIsChecked] = useState<boolean[]>([]);
+  const [isCopied, setIsCopied] = useState(false);
 
   useEffect(() => {
     if (recipe && recipe[type]) {
@@ -91,10 +92,6 @@ function RecipeInProgress() {
       });
   };
 
-  const handleFavoriteClick = () => {
-    setIsFavorited(!isFavorited);
-  };
-
   return (
     <div>
       <img
@@ -112,15 +109,27 @@ function RecipeInProgress() {
       </div>
 
       <div>
-        <button data-testid="share-btn">
-          <img src={ shareIcon } alt="Compartilhar" />
-        </button>
-        <button data-testid="favorite-btn" onClick={ handleFavoriteClick }>
-          <img
-            src={ isFavorited ? blackHeartIcon : whiteHeartIcon }
-            alt={ isFavorited ? 'Desfavoritar' : 'Favoritar' }
-          />
-        </button>
+        <HorizontalShareButton
+          copyInfo={ { recipeType: type2, recipeId: id } }
+          setIsCopied={ setIsCopied }
+          testid="share-btn"
+        />
+        {isCopied && <span>Link copied!</span>}
+        <HorizontalFavoriteButton
+          recipeDetails={ {
+            id,
+            type: type2,
+            nationality: isMeal ? currentRecipe.strArea as string : '',
+            category: currentRecipe.strCategory,
+            alcoholicOrNot: isMeal ? '' : currentRecipe.strAlcoholic,
+            name: isMeal ? currentRecipe.strMeal : currentRecipe.strDrink,
+            image: isMeal
+              ? currentRecipe.strMealThumb : currentRecipe.strDrinkThumb,
+          } }
+          isFavorite={ false }
+          id={ id }
+          testid="favorite-btn"
+        />
       </div>
 
       <button
