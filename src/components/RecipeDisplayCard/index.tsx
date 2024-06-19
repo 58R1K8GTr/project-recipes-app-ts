@@ -1,4 +1,5 @@
 import { useState } from 'react';
+import { useLocation } from 'react-router-dom';
 import { FavoriteRecipeType } from '../../types';
 import HorizontalFavoriteButton from '../HorizontalFavoriteButton';
 import HorizontalShareButton from '../HorizontalShareButton';
@@ -11,6 +12,9 @@ type RecipeDisplayPropsType = {
 function RecipeDisplayCard({
   recipe, index }: RecipeDisplayPropsType) {
   const [isCopied, setIsCopied] = useState(false);
+
+  const location = useLocation();
+  const isDoneRecipes = location.pathname === '/done-recipes';
 
   const recipeType = recipe.type;
   const recipeId = recipe.id;
@@ -54,6 +58,17 @@ function RecipeDisplayCard({
                 {recipe.category}
               </span>
             )}
+          {isDoneRecipes
+          && <p data-testid={ `${index}-horizontal-done-date` }>{recipe.doneDate}</p>}
+          {isDoneRecipes && recipe.tags
+            && recipe.tags.slice(0, 2).map((tag: any) => (
+              <span
+                key={ tag }
+                data-testid={ `${index}-${tag}-horizontal-tag` }
+              >
+                {tag}
+              </span>
+            ))}
         </div>
         <div className="recipe_buttons">
           <div>
@@ -62,11 +77,11 @@ function RecipeDisplayCard({
               copyInfo={ { recipeType, recipeId } }
               setIsCopied={ setIsCopied }
             />
-            <HorizontalFavoriteButton
+            {!isDoneRecipes && <HorizontalFavoriteButton
               isFavorite
               id={ recipe.id }
               testid={ `${index}-horizontal-favorite-btn` } // inseri data testid
-            />
+            />}
             {isCopied && <span>Link copied!</span> }
           </div>
         </div>
