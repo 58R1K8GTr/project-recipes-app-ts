@@ -6,7 +6,7 @@ import userEvent from '@testing-library/user-event';
 import RecipeDetails from '../pages/RecipeDetails';
 import App from '../App';
 import { renderWithRouter } from '../utils/renderWithRouter';
-import DRINK_DATA from './helpers/mockDataSearchCocktailByNameMargarita.json';
+import DRINK_DATA from './helpers/mockDataSearchCocktailOnlyMargarita.json';
 import DataProvider from '../context/DataProvider';
 
 const mealsTestData = {
