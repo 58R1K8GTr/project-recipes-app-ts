@@ -78,6 +78,7 @@ function RecipeDisplayCard({
               setIsCopied={ setIsCopied }
             />
             {!isDoneRecipes && <HorizontalFavoriteButton
+              recipeDetails={ recipe }
               isFavorite
               id={ recipe.id }
               testid={ `${index}-horizontal-favorite-btn` } // inseri data testid
