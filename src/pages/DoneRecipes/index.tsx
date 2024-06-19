@@ -12,6 +12,7 @@ function DoneRecipes() {
     const recipes = JSON.parse(
       localStorage.getItem('doneRecipes') || '[]',
     ) as DoneRecipeType[];
+
     setDoneRecipes(recipes);
     setFilteredRecipes(recipes);
   }, []);
