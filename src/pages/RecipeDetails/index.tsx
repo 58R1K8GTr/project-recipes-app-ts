@@ -68,6 +68,16 @@ function RecipeDetails() {
                 isFavorite={ false }
                 id={ id }
                 testid="favorite-btn"
+                recipeDetails={ {
+                  id,
+                  type,
+                  nationality: recipeData[0].strArea as string,
+                  category: recipeData[0].strCategory,
+                  alcoholicOrNot: recipeData[0].alcoholicOrNot || '',
+                  name: isMeal ? recipeData[0].strMeal : recipeData[0].strDrink,
+                  image: isMeal
+                    ? recipeData[0].strMealThumb : recipeData[0].strDrinkThumb,
+                } }
               />
             </div>
             <HorizontalShareButton
