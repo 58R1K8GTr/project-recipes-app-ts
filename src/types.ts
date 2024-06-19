@@ -142,6 +142,7 @@ export type RecommendationProps = {
   item: RecommendationType;
   index: number;
 };
+
 export type DoneRecipeType = {
   id: string;
   type: string;
@@ -151,7 +152,7 @@ export type DoneRecipeType = {
   name: string;
   image: string;
   doneDate: string;
-  tags: string;
+  tags: string[];
 };
 
 export type UrlsType = {
@@ -183,4 +184,6 @@ export type FavoriteRecipeType = {
   alcoholicOrNot?: string;
   name: string;
   image: string;
+  doneDate?: string;
+  tags?: string[];
 };
