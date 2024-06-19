@@ -62,6 +62,31 @@ function RecipeDetails() {
           <Link to={ `/${type}/${id}/in-progress` }>
             <StartRecipeButton text={ status } />
           </Link>
+          <div>
+            <div>
+              <HorizontalFavoriteButton
+                isFavorite={ false }
+                id={ id }
+                testid="favorite-btn"
+                recipeDetails={ {
+                  id,
+                  type: type2,
+                  nationality: isMeal ? recipeData[0].strArea as string : '',
+                  category: recipeData[0].strCategory,
+                  alcoholicOrNot: isMeal ? '' : recipeData[0].strAlcoholic,
+                  name: isMeal ? recipeData[0].strMeal : recipeData[0].strDrink,
+                  image: isMeal
+                    ? recipeData[0].strMealThumb : recipeData[0].strDrinkThumb,
+                } }
+              />
+            </div>
+            <HorizontalShareButton
+              copyInfo={ { recipeType: type2, recipeId: id } }
+              setIsCopied={ setIsCopied }
+              testid="share-btn"
+            />
+            {isCopied && <span>Link copied!</span>}
+          </div>
         </div>
       )}
       {recipeData && recipeData.map((recipeInfo: Recipe, index: number) => (
