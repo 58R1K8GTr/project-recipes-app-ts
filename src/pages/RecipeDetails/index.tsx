@@ -70,10 +70,10 @@ function RecipeDetails() {
                 testid="favorite-btn"
                 recipeDetails={ {
                   id,
-                  type,
-                  nationality: recipeData[0].strArea as string,
+                  type: type2,
+                  nationality: isMeal ? recipeData[0].strArea as string : '',
                   category: recipeData[0].strCategory,
-                  alcoholicOrNot: recipeData[0].alcoholicOrNot || '',
+                  alcoholicOrNot: isMeal ? '' : recipeData[0].strAlcoholic,
                   name: isMeal ? recipeData[0].strMeal : recipeData[0].strDrink,
                   image: isMeal
                     ? recipeData[0].strMealThumb : recipeData[0].strDrinkThumb,
