@@ -50,6 +50,10 @@ function FavoriteRecipes() {
     setSelectedType(type);
   }
 
+  if (favoriteRecipes.length === 0) {
+    return <h2>There are no favorite recipes yet.</h2>;
+  }
+
   if (isLoading) {
     return <h2>Loading...</h2>;
   }
