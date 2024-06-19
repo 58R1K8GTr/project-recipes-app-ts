@@ -12,7 +12,7 @@ const route = '/done-recipes';
 const horizontalTopTextDataTestId0 = '0-horizontal-top-text';
 const horizontalTopTextDataTestId1 = '1-horizontal-top-text';
 const horizontalTopTextContent0 = 'Italian - Vegetarian';
-const horizontalTopTextContent1 = ' - Cocktail - Alcoholic';
+const horizontalTopTextContent1 = 'Alcoholic - Cocktail';
 
 describe('Testando a página done-recipes', () => {
   test('Ao iniciar a página os dados do meal estão exibindo corretamente', () => {
