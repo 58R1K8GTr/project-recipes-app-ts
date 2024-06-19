@@ -110,7 +110,6 @@ describe('Testar o RecipeDetails.', () => {
 
 describe('Testar os drinks.', () => {
   it('Verifica se o carregando é renderizado', async () => {
-    vi.clearAllMocks();
     vi.spyOn(global, 'fetch')
       .mockResolvedValueOnce(MOCK_RESPONSE_DRINKS);
 
@@ -120,7 +119,6 @@ describe('Testar os drinks.', () => {
     const drinkTitle = await screen.findByTestId('recipe-title');
     const recipeCategory = await screen.findByTestId('recipe-category');
     const instructions = await screen.findByTestId('instructions');
-    screen.debug();
 
     expect(drinkTitle).toHaveTextContent('Margarita');
     expect(recipeCategory).toHaveTextContent('Alcoholic');
