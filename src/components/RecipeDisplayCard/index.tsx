@@ -20,14 +20,6 @@ function RecipeDisplayCard({
   const recipeType = recipe.type;
   const recipeId = recipe.id;
 
-  function formatDate(dateString: string) {
-    const date = new Date(dateString);
-    const month = String(date.getMonth() + 1).padStart(2, '0'); // Adds 1 because months are 0-indexed, then pads with leading zero if needed
-    const day = String(date.getDate()).padStart(2, '0'); // Pads with leading zero if needed
-    const year = date.getFullYear();
-    return `${month}/${day}/${year}`;
-  }
-
   return (
     <div className="d-flex recipe_card mt-3 mb-3">
       <div className="left_side">
@@ -78,7 +70,7 @@ function RecipeDisplayCard({
               data-testid={ `${index}-horizontal-done-date` }
               className="date_text"
             >
-              {recipe.doneDate && formatDate(recipe.doneDate)}
+              {recipe.doneDate}
             </span>
           )}
           {isDoneRecipes && recipe.tags
