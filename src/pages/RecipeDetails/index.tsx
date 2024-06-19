@@ -5,10 +5,13 @@ import RecommendedCarousel from '../../components/Carousel/index';
 import useFetchRecipeAndRecommendations from '../../hooks/useFetchRecipe';
 import { DoneRecipeType, Recipe } from '../../types';
 import StartRecipeButton from '../../components/StartRecipeButton';
+import HorizontalFavoriteButton from '../../components/HorizontalFavoriteButton';
+import HorizontalShareButton from '../../components/HorizontalShareButton';
 
 function RecipeDetails() {
   const { id = '' } = useParams<{ id?: string }>();
   const type = window.location.pathname.includes('/meals') ? 'meals' : 'drinks';
+  const type2 = window.location.pathname.includes('/meals') ? 'meal' : 'drink';
   const isMeal = window.location.pathname.includes('/meals');
   const {
     recipe,
@@ -18,6 +21,7 @@ function RecipeDetails() {
   // Also checks if the id is present in any of 'inProgressRecipes' in localstorage
   const [isDoneRecipe, setIsDoneRecipe] = useState(false);
   const [status, setStatus] = useState('Start');
+  const [isCopied, setIsCopied] = useState(false);
 
   useEffect(() => {
     const storedRecipeJSON = localStorage.getItem('doneRecipes');
@@ -33,6 +37,9 @@ function RecipeDetails() {
 
     if (storedStatusJSON) {
       const statusOfRecipe = JSON.parse(storedStatusJSON);
+
+      if (!statusOfRecipe[type]) return;
+
       const isStarted = id in statusOfRecipe[type];
 
       if (isStarted) {
@@ -43,9 +50,7 @@ function RecipeDetails() {
 
   if (isLoading) return <div>Loading...</div>;
 
-  if (!recipe) { return <h1>NOT FOUND</h1>; }
-
-  if (recipe[type] === null) { return <h1>NOT FOUND</h1>; }
+  if (!recipe || recipe[type] === null) { return <h1>NOT FOUND</h1>; }
 
   const recipeData = recipe[type];
 
@@ -53,9 +58,26 @@ function RecipeDetails() {
     <div className="recipe-details">
       {!isDoneRecipe
       && (
-        <Link to={ `/${type}/${id}/in-progress` }>
-          <StartRecipeButton text={ status } />
-        </Link>
+        <div>
+          <Link to={ `/${type}/${id}/in-progress` }>
+            <StartRecipeButton text={ status } />
+          </Link>
+          <div>
+            <div>
+              <HorizontalFavoriteButton
+                isFavorite={ false }
+                id={ id }
+                testid="favorite-btn"
+              />
+            </div>
+            <HorizontalShareButton
+              copyInfo={ { recipeType: type2, recipeId: id } }
+              setIsCopied={ setIsCopied }
+              testid="share-btn"
+            />
+            {isCopied && <span>Link copied!</span>}
+          </div>
+        </div>
       )}
       {recipeData && recipeData.map((recipeInfo: Recipe, index: number) => (
         <div key={ index }>
