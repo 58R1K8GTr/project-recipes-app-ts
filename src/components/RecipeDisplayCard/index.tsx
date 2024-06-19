@@ -3,6 +3,7 @@ import { useLocation } from 'react-router-dom';
 import { FavoriteRecipeType } from '../../types';
 import HorizontalFavoriteButton from '../HorizontalFavoriteButton';
 import HorizontalShareButton from '../HorizontalShareButton';
+import './styles.css';
 
 type RecipeDisplayPropsType = {
   recipe: FavoriteRecipeType;
@@ -19,26 +20,34 @@ function RecipeDisplayCard({
   const recipeType = recipe.type;
   const recipeId = recipe.id;
 
+  function formatDate(dateString: string) {
+    const date = new Date(dateString);
+    const month = String(date.getMonth() + 1).padStart(2, '0'); // Adds 1 because months are 0-indexed, then pads with leading zero if needed
+    const day = String(date.getDate()).padStart(2, '0'); // Pads with leading zero if needed
+    const year = date.getFullYear();
+    return `${month}/${day}/${year}`;
+  }
+
   return (
-    <div className="d-flex">
+    <div className="d-flex recipe_card mt-3 mb-3">
       <div className="left_side">
         <a
           href={ `/${recipeType}s/${recipeId}` }
           aria-label={ `View ${recipe.name}` }
         >
           <img
-            style={ { width: '100px' } }
             data-testid={ `${index}-horizontal-image` }
+            className="card_image"
             src={ recipe.image }
             alt={ `${recipe.name}` }
           />
         </a>
       </div>
-      <div className="right_side">
-        <a href={ `/${recipeType}s/${recipeId}` }>
-          <h5 data-testid={ `${index}-horizontal-name` }>{recipe.name}</h5>
-        </a>
+      <div className="right_side d-flex justify-content-between p-2">
         <div className="recipe_info">
+          <a href={ `/${recipeType}s/${recipeId}` }>
+            <h5 data-testid={ `${index}-horizontal-name` }>{recipe.name}</h5>
+          </a>
           {recipeType === 'meal'
             ? (
               <span data-testid={ `${index}-horizontal-top-text` }>
@@ -59,7 +68,14 @@ function RecipeDisplayCard({
               </span>
             )}
           {isDoneRecipes
-          && <p data-testid={ `${index}-horizontal-done-date` }>{recipe.doneDate}</p>}
+          && (
+            <span
+              data-testid={ `${index}-horizontal-done-date` }
+              className="date_text"
+            >
+              {recipe.doneDate && formatDate(recipe.doneDate)}
+            </span>
+          )}
           {isDoneRecipes && recipe.tags
             && recipe.tags.slice(0, 2).map((tag: any) => (
               <span
@@ -71,18 +87,18 @@ function RecipeDisplayCard({
             ))}
         </div>
         <div className="recipe_buttons">
-          <div>
+          <div className="d-flex flex-column">
+            {!isDoneRecipes && <HorizontalFavoriteButton
+              isFavorite
+              id={ recipe.id }
+              testid={ `${index}-horizontal-favorite-btn` }
+            />}
             <HorizontalShareButton
               testid={ `${index}-horizontal-share-btn` } // inseri data testid
               copyInfo={ { recipeType, recipeId } }
               setIsCopied={ setIsCopied }
             />
-            {!isDoneRecipes && <HorizontalFavoriteButton
-              isFavorite
-              id={ recipe.id }
-              testid={ `${index}-horizontal-favorite-btn` } // inseri data testid
-            />}
-            {isCopied && <span>Link copied!</span> }
+            {isCopied && <span className="copied_link">Link copied!</span> }
           </div>
         </div>
       </div>

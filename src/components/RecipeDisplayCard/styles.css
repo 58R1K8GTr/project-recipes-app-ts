@@ -1,0 +1,30 @@
+.recipe_card {
+  width: 100%;
+}
+
+.date_text {
+  display: block;
+  font-size: 0.8rem;
+  font-weight: 300;
+}
+
+.left_side {
+  width: 30%;
+}
+
+.right_side {
+  position: relative;
+  width: 70%;
+}
+
+.card_image {
+  width: 100%;
+}
+
+.copied_link {
+  bottom: 0;
+  font-size: 0.8rem;
+  font-weight: 300;
+  position: absolute;
+  right: 0;
+}
