@@ -46,7 +46,12 @@ function RecipeDisplayCard({
       <div className="right_side d-flex justify-content-between p-2">
         <div className="recipe_info">
           <a href={ `/${recipeType}s/${recipeId}` }>
-            <h5 data-testid={ `${index}-horizontal-name` }>{recipe.name}</h5>
+            <h5
+              data-testid={ `${index}-horizontal-name` }
+              className="recipe_title_size"
+            >
+              {recipe.name}
+            </h5>
           </a>
           {recipeType === 'meal'
             ? (
