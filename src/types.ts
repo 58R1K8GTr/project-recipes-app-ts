@@ -127,6 +127,7 @@ export type Recipe = {
   strAlcoholic?: string;
   strInstructions?: string;
   strYoutube?: string;
+  type: string;
   [key: string]: any;
 };
 
@@ -171,4 +172,16 @@ export type DataContextType = {
   setDrinks(dataDrinks: DrinkRecipeType[]): void;
   categories: CategoryType[];
   setCategories(categories: CategoryType[]): void;
+  isUpdatedFavorites: boolean;
+  setIsUpdatedFavorites: (value: boolean) => void;
+};
+
+export type FavoriteRecipeType = {
+  id: string;
+  type: string;
+  nationality: string;
+  category: string;
+  alcoholicOrNot?: string;
+  name: string;
+  image: string;
 };

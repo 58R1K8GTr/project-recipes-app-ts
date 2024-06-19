@@ -9,7 +9,7 @@ import FavoriteRecipes from './pages/FavoriteRecipes';
 import RecipeDetails from './pages/RecipeDetails';
 import Recipes from './pages/Recipes';
 import Layout from './components/Layout';
-import RecipeInProgress from './components/RecipeInProgress';
+import RecipeInProgress from './pages/RecipeInProgress';
 
 function App() {
   return (
