@@ -51,7 +51,7 @@ function FavoriteRecipes() {
   }
 
   if (favoriteRecipes.length === 0) {
-    return <h2>There are no favorite recipes yet.</h2>;
+    return <h2>The favorites list is empty.</h2>;
   }
 
   if (isLoading) {
