@@ -3,7 +3,7 @@ import './App.css';
 import './custom.css';
 import { Routes, Route } from 'react-router-dom';
 import Login from './pages/Login/Login';
-import Profile from './pages/Profile';
+import Profile from './pages/Profile/Profile';
 import DoneRecipes from './pages/DoneRecipes';
 import FavoriteRecipes from './pages/FavoriteRecipes';
 import RecipeDetails from './pages/RecipeDetails';

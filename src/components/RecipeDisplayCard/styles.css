@@ -28,3 +28,14 @@
   position: absolute;
   right: 0;
 }
+
+.recipe_info {
+  max-width: 200px;
+  width: 100%;
+}
+
+.recipe_title_size {
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
