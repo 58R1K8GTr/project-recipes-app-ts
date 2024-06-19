@@ -7,23 +7,23 @@ type CopyInfoType = {
 };
 
 type ShareButtonPropsType = {
-  index: number;
+  testid: string;
   copyInfo: CopyInfoType;
   setIsCopied: Dispatch<SetStateAction<boolean>>;
 };
 
-function HorizontalShareButton({ index, copyInfo, setIsCopied }: ShareButtonPropsType) {
+function HorizontalShareButton({ testid, copyInfo, setIsCopied }: ShareButtonPropsType) {
   const { recipeType, recipeId } = copyInfo;
 
-  function copyToClipboard(type: string, id: string) {
-    navigator.clipboard.writeText(`http://localhost:3000/${type}s/${id}`);
+  async function copyToClipboard(type: string, id: string) {
+    await navigator.clipboard.writeText(`http://localhost:3000/${type}s/${id}`);
     setIsCopied(true);
   }
 
   return (
     <button onClick={ () => copyToClipboard(recipeType, recipeId) }>
       <img
-        data-testid={ `${index}-horizontal-share-btn` }
+        data-testid={ testid }
         src={ shareIcon }
         alt="Share"
       />
