@@ -1,18 +1,19 @@
 import React, { useEffect, useState } from 'react';
 import { useNavigate, useParams } from 'react-router-dom';
-import shareIcon from '../../images/shareIcon.svg';
-import whiteHeartIcon from '../../images/whiteHeartIcon.svg';
-import blackHeartIcon from '../../images/blackHeartIcon.svg';
 import useFetchRecipeAndRecommendations from '../../hooks/useFetchRecipe';
 import './recipe-in-progress.css';
+import HorizontalShareButton from '../../components/HorizontalShareButton';
+import HorizontalFavoriteButton from '../../components/HorizontalFavoriteButton';
 
 function RecipeInProgress() {
   const { id = '' } = useParams<{ id?: string }>();
   const navigate = useNavigate();
   const type = window.location.pathname.includes('/meals') ? 'meals' : 'drinks';
+  const type2 = window.location.pathname.includes('/meals') ? 'meal' : 'drink';
   const { recipe } = useFetchRecipeAndRecommendations(id, type);
   const [isFavorited, setIsFavorited] = useState(false);
   const [isChecked, setIsChecked] = useState<boolean[]>([]);
+  const [isCopied, setIsCopied] = useState(false);
 
   useEffect(() => {
     if (recipe && recipe[type]) {
@@ -96,43 +97,60 @@ function RecipeInProgress() {
   };
 
   return (
-    <div>
+    <div className="recipe-details">
       <img
         src={ currentRecipe.strMealThumb }
         alt={ `Imagem da receita ${currentRecipe.strMeal}` }
         data-testid="recipe-photo"
+        className="recipe_image"
       />
-      <h1 data-testid="recipe-title">{currentRecipe.strMeal}</h1>
-      <h2 data-testid="recipe-category">{currentRecipe.strCategory}</h2>
+      <div className="container mt-3">
+        <div
+          className="controls_container
+              d-flex flex-direction-row justify-content-between"
+        >
+          <a href={ `/${type}` } className="return_link">
+            <p>return to list</p>
+          </a>
+          <div>
+            <HorizontalFavoriteButton
+              isFavorite={ false }
+              id={ id }
+              testid="favorite-btn"
+            />
+            <HorizontalShareButton
+              copyInfo={ { recipeType: type2, recipeId: id } }
+              setIsCopied={ setIsCopied }
+              testid="share-btn"
+            />
+            {isCopied
+                && (
+                  <span>
+                    {' '}
+                    Link copied!
+                  </span>
+                )}
+          </div>
+        </div>
+        <h1 data-testid="recipe-title">{currentRecipe.strMeal}</h1>
+        <p data-testid="recipe-category">{currentRecipe.strCategory}</p>
 
-      <p data-testid="instructions">{currentRecipe.strInstructions}</p>
+        <p data-testid="instructions">{currentRecipe.strInstructions}</p>
 
-      <div className="checkbox-container">
-        {renderIngredients()}
-      </div>
+        <div className="checkbox-container">
+          {renderIngredients()}
+        </div>
 
-      <div>
-        <button data-testid="share-btn">
-          <img src={ shareIcon } alt="Compartilhar" />
+        <button
+          data-testid="finish-recipe-btn"
+          disabled={ !isChecked.every((check) => check) }
+          onClick={ handleFinishRecipe }
+          className="btn-like-bootstrap mt-3"
+        >
+          Finish Recipe
         </button>
-        <button data-testid="favorite-btn" onClick={ handleFavoriteClick }>
-          <img
-            src={ isFavorited ? blackHeartIcon : whiteHeartIcon }
-            alt={ isFavorited ? 'Desfavoritar' : 'Favoritar' }
-          />
-        </button>
       </div>
-
-      <button
-        data-testid="finish-recipe-btn"
-        disabled={ !isChecked.every((check) => check) }
-        onClick={ handleFinishRecipe }
-      >
-        Finish Recipe
-      </button>
-
     </div>
-
   );
 }
 

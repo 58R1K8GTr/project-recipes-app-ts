@@ -62,21 +62,6 @@ function RecipeDetails() {
           <Link to={ `/${type}/${id}/in-progress` }>
             <StartRecipeButton text={ status } />
           </Link>
-          <div>
-            <div>
-              <HorizontalFavoriteButton
-                isFavorite={ false }
-                id={ id }
-                testid="favorite-btn"
-              />
-            </div>
-            <HorizontalShareButton
-              copyInfo={ { recipeType: type2, recipeId: id } }
-              setIsCopied={ setIsCopied }
-              testid="share-btn"
-            />
-            {isCopied && <span>Link copied!</span>}
-          </div>
         </div>
       )}
       {recipeData && recipeData.map((recipeInfo: Recipe, index: number) => (
@@ -88,9 +73,33 @@ function RecipeDetails() {
             alt={ isMeal ? recipeInfo.strMeal : recipeInfo.strDrink }
           />
           <div className="container mt-3">
-            <Link to={ `/${type}` } className="return_link">
-              <p>return to list</p>
-            </Link>
+            <div
+              className="controls_container
+              d-flex flex-direction-row justify-content-between"
+            >
+              <a href={ `/${type}` } className="return_link">
+                <p>return to list</p>
+              </a>
+              <div>
+                <HorizontalFavoriteButton
+                  isFavorite={ false }
+                  id={ id }
+                  testid="favorite-btn"
+                />
+                <HorizontalShareButton
+                  copyInfo={ { recipeType: type2, recipeId: id } }
+                  setIsCopied={ setIsCopied }
+                  testid="share-btn"
+                />
+                {isCopied
+                && (
+                  <span>
+                    {' '}
+                    Link copied!
+                  </span>
+                )}
+              </div>
+            </div>
             <h1 data-testid="recipe-title">
               {isMeal ? recipeInfo.strMeal : recipeInfo.strDrink}
             </h1>
