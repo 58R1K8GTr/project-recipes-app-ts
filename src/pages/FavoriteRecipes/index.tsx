@@ -51,7 +51,12 @@ function FavoriteRecipes() {
   }
 
   if (favoriteRecipes.length === 0) {
-    return <h2>The favorites list is empty.</h2>;
+    return (
+      <div className="text-center mt-5">
+        <h5>The favorites list is empty.</h5>
+        <a href="/meals" className="go_back_link">Go back to the recipes...</a>
+      </div>
+    );
   }
 
   if (isLoading) {

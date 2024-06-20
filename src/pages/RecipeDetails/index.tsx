@@ -7,6 +7,7 @@ import { DoneRecipeType, Recipe } from '../../types';
 import StartRecipeButton from '../../components/StartRecipeButton';
 import HorizontalFavoriteButton from '../../components/HorizontalFavoriteButton';
 import HorizontalShareButton from '../../components/HorizontalShareButton';
+import Loading from '../../components/Loading';
 
 function RecipeDetails() {
   const { id = '' } = useParams<{ id?: string }>();
@@ -48,7 +49,7 @@ function RecipeDetails() {
     }
   }, [id, type]);
 
-  if (isLoading) return <div>Loading...</div>;
+  if (isLoading) return <Loading />;
 
   if (!recipe || recipe[type] === null) { return <h1>NOT FOUND</h1>; }
 
@@ -77,7 +78,7 @@ function RecipeDetails() {
               className="controls_container
               d-flex flex-direction-row justify-content-between"
             >
-              <a href={ `/${type}` } className="return_link">
+              <a href={ `/${type}` } className="go_back_link">
                 <p>return to list</p>
               </a>
               <div>

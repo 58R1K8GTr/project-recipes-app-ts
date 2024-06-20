@@ -12,6 +12,7 @@ import fetchDrinksByCategory from '../../utils/fetchDrinksByCategory';
 import { DrinkRecipeType } from '../../types';
 import DataContext from '../../context/DataContext';
 import './styles.css';
+import Loading from '../Loading';
 
 function Drinks() {
   const { drinks, setDrinks, categories, setCategories } = useContext(DataContext);
@@ -42,7 +43,7 @@ function Drinks() {
     }
   };
 
-  if (isLoadingDrinks) return <div>Loading...</div>;
+  if (isLoadingDrinks) return <Loading />;
 
   const getCategoryImage = (categoryName: string) => {
     const selected = 'text-primary-color';

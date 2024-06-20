@@ -23,6 +23,11 @@ body {
   color: #106e87;
 }
 
+.go_back_link {
+  color: #e30957;
+  text-decoration: underline;
+}
+
 /* Basic Button Styling */
 .btn-like-bootstrap {
   background-color: #e30957; /* Primary blue */
