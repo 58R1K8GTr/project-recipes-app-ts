@@ -44,7 +44,7 @@ describe('Tests Meals on "Recipe in progress" Page', () => {
 
     renderWithRouter((<RecipeInProgress />), { route: MOCK_MEAL_ROUTE });
 
-    await waitForElementToBeRemoved(() => screen.getByRole('heading', { name: /not found/i }));
+    await waitForElementToBeRemoved(() => screen.getByRole('heading', { name: /loading/i }));
 
     const favoriteBtn = screen.getByAltText(/favoritar/i) as HTMLImageElement;
 
@@ -60,7 +60,7 @@ describe('Tests Meals on "Recipe in progress" Page', () => {
 
     renderWithRouter((<RecipeInProgress />), { route: MOCK_MEAL_ROUTE });
 
-    await waitForElementToBeRemoved(() => screen.getByRole('heading', { name: /not found/i }));
+    await waitForElementToBeRemoved(() => screen.getByRole('heading', { name: /loading/i }));
 
     const firstCheckBox = screen.getByText(/penne rigate/i) as HTMLInputElement;
 
@@ -78,7 +78,7 @@ describe('Tests Meals on "Recipe in progress" Page', () => {
 
     renderWithRouter((<RecipeInProgress />), { route: MOCK_MEAL_ROUTE });
 
-    await waitForElementToBeRemoved(() => screen.getByRole('heading', { name: /not found/i }));
+    await waitForElementToBeRemoved(() => screen.getByRole('heading', { name: /loading/i }));
 
     const finishRecipeButton = screen.getByRole('button', { name: /finish recipe/i });
 
@@ -113,7 +113,7 @@ describe('Tests Drinks on "Recipe in progressq" Page', () => {
 
     renderWithRouter((<RecipeInProgress />), { route: '/drinks/11007/in-progress' });
 
-    await waitForElementToBeRemoved(() => screen.getByRole('heading', { name: /not found/i }));
+    await waitForElementToBeRemoved(() => screen.getByRole('heading', { name: /loading/i }));
     const finishRecipeButton = screen.getByRole('button', { name: /finish recipe/i });
 
     const allCheckBoxes = screen.getAllByRole('checkbox') as HTMLInputElement[];

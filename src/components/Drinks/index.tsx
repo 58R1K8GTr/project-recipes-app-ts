@@ -13,7 +13,7 @@ function Drinks() {
   const [selectedCategory, setSelectedCategory] = useState<string>('All');
   const [drinksByCategory, setDrinksByCategory] = useState<DrinkRecipeType[]>([]);
 
-  const fetchedData = useFetchDrinks();
+  const { fetchedData, isLoadingDrinks } = useFetchDrinks();
 
   useEffect(() => {
     setDrinks(fetchedData.drinks);
@@ -35,6 +35,8 @@ function Drinks() {
       setSelectedCategory('All');
     }
   };
+
+  if (isLoadingDrinks) return <div>Loading...</div>;
 
   return (
     <div>
