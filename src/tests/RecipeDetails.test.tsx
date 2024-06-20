@@ -3,7 +3,6 @@ import { screen, waitForElementToBeRemoved } from '@testing-library/react';
 import { vi } from 'vitest';
 import { act } from 'react-dom/test-utils';
 import userEvent from '@testing-library/user-event';
-// import RecipeDetails from '../pages/RecipeDetails';
 import App from '../App';
 import { renderWithRouter } from '../utils/renderWithRouter';
 import DRINK_DATA from './helpers/mockDataSearchCocktailOnlyMargarita.json';
@@ -109,6 +108,7 @@ describe('Testar o RecipeDetails.', () => {
 });
 
 describe('Testar os drinks.', () => {
+  vi.clearAllMocks();
   it('Verifica se o carregando é renderizado', async () => {
     vi.spyOn(global, 'fetch')
       .mockResolvedValueOnce(MOCK_RESPONSE_DRINKS);
