@@ -1,0 +1,52 @@
+body {
+  background-color: #212024;
+  color: white;
+}
+
+.bg-color {
+  background-color: #212024;
+}
+
+.bg-primary-color {
+  background-color: #e30957;
+}
+
+.bg-secondary-color {
+  background-color: #106e87;
+}
+
+.text-primary-color {
+  color: #ef8798;
+}
+
+.text-secondary-color {
+  color: #106e87;
+}
+
+.go_back_link {
+  color: #e30957;
+  text-decoration: underline;
+}
+
+/* Basic Button Styling */
+.btn-like-bootstrap {
+  background-color: #e30957; /* Primary blue */
+  border: 1px solid #e30957;
+  border-radius: 0.375rem;
+  color: white;
+  display: inline-block;
+  font-size: 1rem;
+  font-weight: 400;
+  line-height: 1.5;
+  padding: 0.375rem 0.75rem;
+  text-align: center;
+  transition: color , background-color , border-color , box-shadow 0.15s ease-in-out;
+  user-select: none;
+  vertical-align: middle;
+}
+
+/* Disabled State */
+.btn-like-bootstrap:disabled, .btn-like-bootstrap.disabled {
+  opacity: 0.65;
+  pointer-events: none;
+}

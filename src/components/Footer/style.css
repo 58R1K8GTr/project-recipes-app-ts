@@ -1,6 +1,6 @@
 .footer {
-  background-color: white;
-  border-top: 1px solid #ddd;
+  background-color: #106e87;
+  border-top: 1px solid #106e87;
   bottom: 0;
   display: flex;
   justify-content: space-around;
@@ -15,7 +15,12 @@
   cursor: pointer;
 }
 
-.footer-btn img {
-  height: 30px;
-  width: 30px;
+.footer_image_meal {
+  height: 34px;
+  width: 34px;
+}
+
+.footer_image_drink {
+  height: 23px;
+  width: 23px;
 }

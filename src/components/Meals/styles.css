@@ -1,0 +1,40 @@
+.categories_grid {
+  padding-top: 1rem;
+}
+
+.category_button {
+  background-color: transparent;
+  border: none;
+  color: inherit;
+  font-size: 2.7rem;
+}
+
+.recipes_grid {
+  display: grid;
+  grid-gap: 10px 15px;
+  grid-template-columns: repeat(2, 1fr);
+  grid-template-rows: 1fr;
+  padding-bottom: 5rem;
+  padding-top: 2rem;
+}
+
+.recipe-link {
+  font-weight: 600;
+  text-decoration: none;
+}
+
+.categories_wrapper {
+  align-items: center;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-around;
+}
+
+.category_text {
+  display: block;
+  font-size: 0.7rem;
+}
+
+.button_all {
+  font-size: 2.9rem;
+}

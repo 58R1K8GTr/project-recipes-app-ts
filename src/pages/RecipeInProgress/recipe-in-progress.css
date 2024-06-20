@@ -6,3 +6,11 @@
 .is-checked {
   text-decoration: line-through solid black;
 }
+
+.recipe-details {
+  padding-bottom: 3rem;
+}
+
+.recipe_image {
+  width: 100%;
+}

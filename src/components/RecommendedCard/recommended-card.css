@@ -6,19 +6,20 @@
 }
 
 .recommended-img {
-  border-radius: 10px 10px 0 0;
+  border-radius: 10px;
   width: 120px;
 }
 
 .recommended-card-footer {
   align-items: center;
-  background-color: grey;
-  border-top: 1px solid rgba(0, 0, 0, 0.301);
+  border: none;
+  color: white;
   display: flex;
   height: 30px;
-  justify-content: center;
+  justify-content: left;
 }
 
 .recommended-card {
+  background-color: #212024;
   border: 0;
 }

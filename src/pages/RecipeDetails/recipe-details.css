@@ -4,3 +4,11 @@
   flex-direction: column;
   justify-content: center;
 }
+
+.recipe-details {
+  padding-bottom: 5rem;
+}
+
+.recipe_image {
+  width: 100%;
+}
