@@ -1,0 +1,24 @@
+.profile_container {
+  text-align: center;
+}
+
+.profile_btn {
+  background: none;
+  background-color: #e30957;
+  border: none;
+  border-radius: 12px;
+  color: white;
+  cursor: pointer;
+  font-weight: 600;
+  padding: 8px 22px;
+  text-transform: uppercase;
+}
+
+.profile_btn_container {
+  width: 60%;
+}
+
+.logout_btn {
+  background-color: transparent;
+  text-decoration: underline;
+}

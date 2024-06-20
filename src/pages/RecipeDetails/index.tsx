@@ -7,6 +7,7 @@ import { DoneRecipeType, Recipe } from '../../types';
 import StartRecipeButton from '../../components/StartRecipeButton';
 import HorizontalFavoriteButton from '../../components/HorizontalFavoriteButton';
 import HorizontalShareButton from '../../components/HorizontalShareButton';
+import Loading from '../../components/Loading';
 
 function RecipeDetails() {
   const { id = '' } = useParams<{ id?: string }>();
@@ -48,7 +49,7 @@ function RecipeDetails() {
     }
   }, [id, type]);
 
-  if (isLoading) return <div>Loading...</div>;
+  if (isLoading) return <Loading />;
 
   if (!recipe || recipe[type] === null) { return <h1>NOT FOUND</h1>; }
 
@@ -62,31 +63,6 @@ function RecipeDetails() {
           <Link to={ `/${type}/${id}/in-progress` }>
             <StartRecipeButton text={ status } />
           </Link>
-          <div>
-            <div>
-              <HorizontalFavoriteButton
-                isFavorite={ false }
-                id={ id }
-                testid="favorite-btn"
-                recipeDetails={ {
-                  id,
-                  type: type2,
-                  nationality: isMeal ? recipeData[0].strArea as string : '',
-                  category: recipeData[0].strCategory,
-                  alcoholicOrNot: isMeal ? '' : recipeData[0].strAlcoholic,
-                  name: isMeal ? recipeData[0].strMeal : recipeData[0].strDrink,
-                  image: isMeal
-                    ? recipeData[0].strMealThumb : recipeData[0].strDrinkThumb,
-                } }
-              />
-            </div>
-            <HorizontalShareButton
-              copyInfo={ { recipeType: type2, recipeId: id } }
-              setIsCopied={ setIsCopied }
-              testid="share-btn"
-            />
-            {isCopied && <span>Link copied!</span>}
-          </div>
         </div>
       )}
       {recipeData && recipeData.map((recipeInfo: Recipe, index: number) => (
@@ -97,43 +73,83 @@ function RecipeDetails() {
             src={ isMeal ? recipeInfo.strMealThumb : recipeInfo.strDrinkThumb }
             alt={ isMeal ? recipeInfo.strMeal : recipeInfo.strDrink }
           />
-          <h1 data-testid="recipe-title">
-            {isMeal ? recipeInfo.strMeal : recipeInfo.strDrink}
-          </h1>
-          <p data-testid="recipe-category">
-            {isMeal ? recipeInfo.strCategory : recipeInfo.strAlcoholic}
-          </p>
-          <ul>
-            {Object.keys(recipeInfo)
-              .filter((key) => key.includes('Ingredient') && recipeInfo[key])
-              .map((key, ingredientIndex) => (
-                <li
-                  key={ `${key}-${index}` }
-                  data-testid={ `${ingredientIndex}-ingredient-name-and-measure` }
-                >
-                  {recipeInfo[key]}
-                  {' '}
-                  -
-                  {recipeInfo[`strMeasure${key.match(/\d+/)}`]}
-                </li>
-              ))}
-          </ul>
-          <p data-testid="instructions">{recipeInfo.strInstructions}</p>
-          {isMeal && recipeInfo.strYoutube && (
-            <iframe
-              data-testid="video"
-              title="Recipe Video"
-              width="100%"
-              height="315"
-              src={ `https://www.youtube.com/embed/${recipeInfo.strYoutube.split('v=')[1]}` }
-              allowFullScreen
-            />
-          )}
+          <div className="container mt-3">
+            <div
+              className="controls_container
+              d-flex flex-direction-row justify-content-between"
+            >
+              <a href={ `/${type}` } className="go_back_link">
+                <p>return to list</p>
+              </a>
+              <div>
+                <HorizontalFavoriteButton
+                  isFavorite={ false }
+                  id={ id }
+                  testid="favorite-btn"
+                  recipeDetails={ {
+                    id,
+                    type: type2,
+                    nationality: isMeal ? recipeData[0].strArea as string : '',
+                    category: recipeData[0].strCategory,
+                    alcoholicOrNot: isMeal ? '' : recipeData[0].strAlcoholic,
+                    name: isMeal ? recipeData[0].strMeal : recipeData[0].strDrink,
+                    image: isMeal
+                      ? recipeData[0].strMealThumb : recipeData[0].strDrinkThumb,
+                  } }
+                />
+                <HorizontalShareButton
+                  copyInfo={ { recipeType: type2, recipeId: id } }
+                  setIsCopied={ setIsCopied }
+                  testid="share-btn"
+                />
+                {isCopied
+                && (
+                  <span>
+                    {' '}
+                    Link copied!
+                  </span>
+                )}
+              </div>
+            </div>
+            <h1 data-testid="recipe-title">
+              {isMeal ? recipeInfo.strMeal : recipeInfo.strDrink}
+            </h1>
+            <p data-testid="recipe-category">
+              {isMeal ? recipeInfo.strCategory : recipeInfo.strAlcoholic}
+            </p>
+            <ul>
+              {Object.keys(recipeInfo)
+                .filter((key) => key.includes('Ingredient') && recipeInfo[key])
+                .map((key, ingredientIndex) => (
+                  <li
+                    key={ `${key}-${index}` }
+                    data-testid={ `${ingredientIndex}-ingredient-name-and-measure` }
+                  >
+                    {recipeInfo[key]}
+                    {' '}
+                    -
+                    {recipeInfo[`strMeasure${key.match(/\d+/)}`]}
+                  </li>
+                ))}
+            </ul>
+            <p data-testid="instructions">{recipeInfo.strInstructions}</p>
+            {isMeal && recipeInfo.strYoutube && (
+              <iframe
+                data-testid="video"
+                title="Recipe Video"
+                width="100%"
+                height="315"
+                src={ `https://www.youtube.com/embed/${recipeInfo.strYoutube.split('v=')[1]}` }
+                allowFullScreen
+              />
+            )}
+          </div>
         </div>
       ))}
       <div className="recommendations">
-        <h2>
+        <h2 className="mt-4 mb-4">
           Recommended
+          {' '}
           {isMeal ? 'Drinks' : 'Meals'}
         </h2>
         <RecommendedCarousel />

@@ -4,6 +4,7 @@ import useFetchRecipeAndRecommendations from '../../hooks/useFetchRecipe';
 import './recipe-in-progress.css';
 import HorizontalShareButton from '../../components/HorizontalShareButton';
 import HorizontalFavoriteButton from '../../components/HorizontalFavoriteButton';
+import Loading from '../../components/Loading';
 
 function RecipeInProgress() {
   const { id = '' } = useParams<{ id?: string }>();
@@ -29,9 +30,8 @@ function RecipeInProgress() {
     }
   }, [recipe, type, id]);
 
-  // if (isLoading) return <div>Loading...</div>;
   if (!recipe || !recipe[type]) {
-    return <h1>Loading...</h1>;
+    return <Loading />;
   }
   const currentRecipe = recipe[type][0];
 
@@ -94,55 +94,63 @@ function RecipeInProgress() {
   };
 
   return (
-    <div>
+    <div className="recipe-details">
       <img
         src={ currentRecipe.strMealThumb }
         alt={ `Imagem da receita ${currentRecipe.strMeal}` }
         data-testid="recipe-photo"
+        className="recipe_image"
       />
-      <h1 data-testid="recipe-title">{currentRecipe.strMeal}</h1>
-      <h2 data-testid="recipe-category">{currentRecipe.strCategory}</h2>
+      <div className="container mt-3">
+        <div
+          className="controls_container
+              d-flex flex-direction-row justify-content-between"
+        >
+          <a href={ `/${type}` } className="go_back_link">
+            <p>return to list</p>
+          </a>
+          <div>
+            <HorizontalFavoriteButton
+              recipeDetails={ {
+                id,
+                type: type2,
+                nationality: isMeal ? currentRecipe.strArea as string : '',
+                category: currentRecipe.strCategory,
+                alcoholicOrNot: isMeal ? '' : currentRecipe.strAlcoholic,
+                name: isMeal ? currentRecipe.strMeal : currentRecipe.strDrink,
+                image: isMeal
+                  ? currentRecipe.strMealThumb : currentRecipe.strDrinkThumb,
+              } }
+              isFavorite={ false }
+              id={ id }
+              testid="favorite-btn"
+            />
+            <HorizontalShareButton
+              copyInfo={ { recipeType: type2, recipeId: id } }
+              setIsCopied={ setIsCopied }
+              testid="share-btn"
+            />
+            {isCopied && <span>Link copied!</span>}
+          </div>
+        </div>
+        <h1 data-testid="recipe-title">{currentRecipe.strMeal}</h1>
+        <p data-testid="recipe-category">{currentRecipe.strCategory}</p>
 
-      <p data-testid="instructions">{currentRecipe.strInstructions}</p>
+        <p data-testid="instructions">{currentRecipe.strInstructions}</p>
 
-      <div className="checkbox-container">
-        {renderIngredients()}
+        <div className="checkbox-container">
+          {renderIngredients()}
+        </div>
+        <button
+          data-testid="finish-recipe-btn"
+          disabled={ !isChecked.every((check) => check) }
+          onClick={ handleFinishRecipe }
+          className="btn-like-bootstrap mt-3"
+        >
+          Finish Recipe
+        </button>
       </div>
-
-      <div>
-        <HorizontalShareButton
-          copyInfo={ { recipeType: type2, recipeId: id } }
-          setIsCopied={ setIsCopied }
-          testid="share-btn"
-        />
-        {isCopied && <span>Link copied!</span>}
-        <HorizontalFavoriteButton
-          recipeDetails={ {
-            id,
-            type: type2,
-            nationality: isMeal ? currentRecipe.strArea as string : '',
-            category: currentRecipe.strCategory,
-            alcoholicOrNot: isMeal ? '' : currentRecipe.strAlcoholic,
-            name: isMeal ? currentRecipe.strMeal : currentRecipe.strDrink,
-            image: isMeal
-              ? currentRecipe.strMealThumb : currentRecipe.strDrinkThumb,
-          } }
-          isFavorite={ false }
-          id={ id }
-          testid="favorite-btn"
-        />
-      </div>
-
-      <button
-        data-testid="finish-recipe-btn"
-        disabled={ !isChecked.every((check) => check) }
-        onClick={ handleFinishRecipe }
-      >
-        Finish Recipe
-      </button>
-
     </div>
-
   );
 }
 
