@@ -2,13 +2,14 @@ import React from 'react';
 import './App.css';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import { Routes, Route } from 'react-router-dom';
-import Login from './components/Login';
+import Login from './pages/Login/Login';
 import Profile from './pages/Profile';
 import DoneRecipes from './pages/DoneRecipes';
 import FavoriteRecipes from './pages/FavoriteRecipes';
-import RecipeDetails from './components/RecipeDetails';
+import RecipeDetails from './pages/RecipeDetails';
 import Recipes from './pages/Recipes';
 import Layout from './components/Layout';
+import RecipeInProgress from './pages/RecipeInProgress';
 
 function App() {
   return (
@@ -23,8 +24,8 @@ function App() {
       </Route>
       <Route path="/meals/:id" element={ <RecipeDetails /> } />
       <Route path="/drinks/:id" element={ <RecipeDetails /> } />
-      <Route path="/meals/:id/in-progress" element={ <div>Meal In Progress</div> } />
-      <Route path="/drinks/:id/in-progress" element={ <div>Drink In Progress</div> } />
+      <Route path="/meals/:id/in-progress" element={ <RecipeInProgress /> } />
+      <Route path="/drinks/:id/in-progress" element={ <RecipeInProgress /> } />
     </Routes>
   );
 }

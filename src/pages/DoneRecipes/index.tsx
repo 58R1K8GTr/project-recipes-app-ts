@@ -1,13 +1,19 @@
 import React, { useState, useEffect } from 'react';
-import shareIcon from '../../images/shareIcon.svg';
-import { Recipe } from '../../types';
+// import { Link } from 'react-router-dom';
+// import shareIcon from '../../images/shareIcon.svg';
+import { DoneRecipeType, Recipe } from '../../types';
+import RecipeDisplayCard from '../../components/RecipeDisplayCard';
 
 function DoneRecipes() {
-  const [doneRecipes, setDoneRecipes] = useState<Recipe>([]);
-  const [filteredRecipes, setFilteredRecipes] = useState<Recipe>([]);
+  const [doneRecipes, setDoneRecipes] = useState<DoneRecipeType[]>([]);
+  const [filteredRecipes, setFilteredRecipes] = useState<DoneRecipeType[]>([]);
+  // const [textButton, setTextButton] = useState('');
 
   useEffect(() => {
-    const recipes = JSON.parse(localStorage.getItem('doneRecipes') || '[]') as Recipe;
+    const recipes = JSON.parse(
+      localStorage.getItem('doneRecipes') || '[]',
+    ) as DoneRecipeType[];
+
     setDoneRecipes(recipes);
     setFilteredRecipes(recipes);
   }, []);
@@ -20,11 +26,15 @@ function DoneRecipes() {
     }
   };
 
-  // const renderTopText = (recipe: Recipe) => {
-  //   if (recipe.idMeal) {
-  //     return `${recipe.nationality} - ${recipe.category}`;
-  //   }
-  //   return recipe.strAlcoholic || '';
+  // const handleShare = async (
+  //   event: React.MouseEvent<HTMLButtonElement, MouseEvent>,
+  // ) => {
+  //   setTextButton('Link copied!');
+  //   const target = event.target as HTMLButtonElement;
+  //   const index = Number(target.className.substring(6));
+  //   const recipe = filteredRecipes[index];
+  //   const { type, id } = recipe;
+  //   await navigator.clipboard.writeText(`http://localhost:3000/${type}s/${id}`);
   // };
 
   return (
@@ -50,38 +60,23 @@ function DoneRecipes() {
         </button>
       </div>
       <div>
-        {filteredRecipes.map((recipe: Recipe, index: any) => (
-          <div key={ index }>
-            <img
-              src={ recipe.image || recipe.strDrinkThumb }
-              alt={ recipe.name || recipe.strDrink }
-              data-testid={ `${index}-horizontal-image` }
-            />
-            <p data-testid={ `${index}-horizontal-top-text` }>
-              {`${recipe.nationality} - ${recipe.category}`}
-              {/* {renderTopText(recipe)} */}
-            </p>
-            <p data-testid={ `${index}-horizontal-name` }>{recipe.name}</p>
-            <button>
-              <img
-                data-testid={ `${index}-horizontal-share-btn` }
-                src={ shareIcon }
-                alt="Share"
+        {filteredRecipes.map((recipe: DoneRecipeType, index: any) => {
+          // let horizontalTopText = `${recipe.nationality} - ${recipe.category}`;
+          // if (recipe.alcoholicOrNot) {
+          //   horizontalTopText += ` - ${recipe.alcoholicOrNot}`;
+          // }
+          return (
+            <div
+              data-testid="recipe-card"
+              key={ index }
+            >
+              <RecipeDisplayCard
+                recipe={ recipe }
+                index={ index }
               />
-            </button>
-            <p data-testid={ `${index}-horizontal-done-date` }>{recipe.doneDate}</p>
-            <div>
-              {recipe.tags.slice(0, 2).map((tag: any) => (
-                <span
-                  key={ tag }
-                  data-testid={ `${index}-${tag}-horizontal-tag` }
-                >
-                  {tag}
-                </span>
-              ))}
             </div>
-          </div>
-        ))}
+          );
+        })}
       </div>
     </div>
   );
