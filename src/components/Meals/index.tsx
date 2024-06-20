@@ -16,7 +16,7 @@ function Meals() {
   const [selectedCategory, setSelectedCategory] = useState<string>('All');
   const [mealsByCategory, setMealsByCategory] = useState<MealRecipeType[]>([]);
 
-  const fetchedData = useFetchMeals();
+  const { fetchedData, isLoadingMeals } = useFetchMeals();
 
   useEffect(() => {
     setMeals(fetchedData.meals);
@@ -38,6 +38,8 @@ function Meals() {
       setSelectedCategory('All');
     }
   };
+
+  if (isLoadingMeals) return <div>Loading...</div>;
 
   const getCategoryImage = (categoryName: string) => {
     const selected = 'text-primary-color';

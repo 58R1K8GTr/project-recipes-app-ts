@@ -12,6 +12,7 @@ const filterResult = (list: DrinkRecipeType[], quantity: number) => {
 };
 
 const useFetchDrinks = () => {
+  const [isLoadingDrinks, setLoadingDrinks] = useState<boolean>(true);
   const [fetchedData, setFetchedData] = useState<FetchedDataType>({
     drinks: [],
     categories: [],
@@ -19,23 +20,29 @@ const useFetchDrinks = () => {
 
   useEffect(() => {
     const fetchDrinks = async () => {
-      const drinksResponse = await fetch(apiEndpoints.DRINK_URL);
-      const drinksData = await drinksResponse.json();
-      const drinks = filterResult(drinksData.drinks, 12);
+      setLoadingDrinks(true);
+      try {
+        const drinksResponse = await fetch(apiEndpoints.DRINK_URL);
+        const drinksData = await drinksResponse.json();
+        const drinks = filterResult(drinksData.drinks, 12);
 
-      const categoriesResponse = await fetch(apiEndpoints.DRINK_CATEGORIES);
-      const categoriesData = await categoriesResponse.json();
-      const categories = filterResult(categoriesData.drinks, 5);
+        const categoriesResponse = await fetch(apiEndpoints.DRINK_CATEGORIES);
+        const categoriesData = await categoriesResponse.json();
+        const categories = filterResult(categoriesData.drinks, 5);
 
-      if (drinks && categories) {
-        setFetchedData({ drinks, categories });
+        if (drinks && categories) {
+          setFetchedData({ drinks, categories });
+        }
+      } catch (error) {
+        console.error('Failed to find drink categories');
       }
+      setLoadingDrinks(false);
     };
 
     fetchDrinks();
   }, []);
 
-  return fetchedData;
+  return { fetchedData, isLoadingDrinks };
 };
 
 export default useFetchDrinks;
