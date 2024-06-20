@@ -29,6 +29,7 @@ function RecipeInProgress() {
     }
   }, [recipe, type, id]);
 
+  // if (isLoading) return <div>Loading...</div>;
   if (!recipe || !recipe[type]) {
     return <h1>Loading...</h1>;
   }
