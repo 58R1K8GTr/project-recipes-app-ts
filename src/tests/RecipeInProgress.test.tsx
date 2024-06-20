@@ -38,7 +38,7 @@ const MOCK_LOCALSTORAGE_DRINK = [
 
 const MOCK_MEAL_ROUTE = '/meals/52771/in-progress';
 
-describe('Tests Meals on "Recipe in progress" Page', () => {
+describe('Test Meals on "Recipe in progress" Page', () => {
   test('Verify if favorite button changes icon on click,', async () => {
     vi.spyOn(global, 'fetch')
       .mockResolvedValueOnce(MOCK_RESPONSE);
@@ -105,7 +105,6 @@ describe('Tests Meals on "Recipe in progress" Page', () => {
 
     const allCheckBoxes = screen.getAllByRole('checkbox') as HTMLInputElement[];
 
-    await userEvent.click(allCheckBoxes[0]);
     await userEvent.click(allCheckBoxes[1]);
     await userEvent.click(allCheckBoxes[2]);
     await userEvent.click(allCheckBoxes[3]);
@@ -113,20 +112,20 @@ describe('Tests Meals on "Recipe in progress" Page', () => {
     await userEvent.click(allCheckBoxes[5]);
     await userEvent.click(allCheckBoxes[6]);
     await userEvent.click(allCheckBoxes[7]);
+    await userEvent.click(allCheckBoxes[8]);
 
     expect(finishRecipeButton).not.toBeDisabled();
 
     await userEvent.click(finishRecipeButton);
-    // localStorage.setItem('doneRecipes', JSON.stringify(MOCK_MEAL));
     expect(window.location.pathname).toBe('/done-recipes');
   });
 });
 
-describe('Tests Drinks on "Recipe in progressq" Page', () => {
+describe('Test Drinks on "Recipe in progress" Page', () => {
   afterEach(() => {
     localStorage.clear();
   });
-  test('Test if Finish Recipe Button is enabled after checking all checkboxes,', async () => {
+  test('Test if Finish Recipe Button is enabled after checking all checkboxes and "select All" checkbox marks and unmarks every checkbox', async () => {
     vi.spyOn(global, 'fetch')
       .mockResolvedValueOnce(MOCK_RESPONSE_2);
 
@@ -141,12 +140,21 @@ describe('Tests Drinks on "Recipe in progressq" Page', () => {
     await waitForElementToBeRemoved(() => screen.getByRole('heading', { name: /loading/i }));
 
     const finishRecipeButton = screen.getByRole('button', { name: /finish recipe/i });
+    const selectAllCheckbox = await screen.findByText(/select all/i) as HTMLInputElement;
 
     const allCheckBoxes = screen.getAllByRole('checkbox') as HTMLInputElement[];
-    await userEvent.click(allCheckBoxes[0]);
     await userEvent.click(allCheckBoxes[1]);
     await userEvent.click(allCheckBoxes[2]);
     await userEvent.click(allCheckBoxes[3]);
+    await userEvent.click(allCheckBoxes[4]);
+
+    expect(finishRecipeButton).not.toBeDisabled();
+
+    await userEvent.click(selectAllCheckbox);
+
+    expect(finishRecipeButton).toBeDisabled();
+
+    await userEvent.click(selectAllCheckbox);
 
     expect(finishRecipeButton).not.toBeDisabled();
 
