@@ -24,9 +24,7 @@ const useFetchRecipeAndRecommendations = (id: string, type: 'meals' | 'drinks') 
         ]);
 
         const recipeData = await recipeResponse.json();
-        console.log(recipeData);
         const recommendationData = await recommendationResponse.json();
-        console.log(recommendationData);
 
         setRecipe(recipeData);
         setRecommendations(type === 'meals'
