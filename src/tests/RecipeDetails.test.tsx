@@ -1,8 +1,6 @@
 import React from 'react';
 import { screen, waitForElementToBeRemoved } from '@testing-library/react';
 import { vi } from 'vitest';
-import { act } from 'react-dom/test-utils';
-import userEvent from '@testing-library/user-event';
 import App from '../App';
 import { renderWithRouter } from '../utils/renderWithRouter';
 import DRINK_DATA from './helpers/mockDataSearchCocktailOnlyMargarita.json';
@@ -62,16 +60,13 @@ describe('Testar o RecipeDetails.', () => {
     vi.spyOn(global, 'fetch')
       .mockResolvedValueOnce(MOCK_RESPONSE_1)
       .mockResolvedValueOnce(MOCK_RESPONSE_2);
-
-    await act(async () => {
-      renderWithRouter((
-        <DataProvider>
-          <App />
-        </DataProvider>), { route: '/meals/52977' });
-    });
   });
 
   it('Verifica se os detalhes da receita são renderizados corretamente', async () => {
+    renderWithRouter((
+      <DataProvider>
+        <App />
+      </DataProvider>), { route: '/meals/52977' });
     const recipeTitle = await screen.findByTestId('recipe-title');
     const recipeCategory = await screen.findByTestId('recipe-category');
     const instructions = await screen.findByTestId('instructions');
@@ -84,13 +79,17 @@ describe('Testar o RecipeDetails.', () => {
   });
 
   it('Verifica se os buttons são renderizados corretamente', async () => {
+    const { user } = renderWithRouter((
+      <DataProvider>
+        <App />
+      </DataProvider>), { route: '/meals/52977' });
     const favButton = await screen.findByTestId('favorite-btn');
     const shareButton = await screen.findByTestId('share-btn');
 
     expect(favButton).toBeInTheDocument();
     expect(shareButton).toBeInTheDocument();
 
-    await userEvent.click(favButton);
+    await user.click(favButton);
 
     const localStorageRecipe = JSON.parse(localStorage.getItem('favoriteRecipes') || '[]');
 
