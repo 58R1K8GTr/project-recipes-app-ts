@@ -1,3 +1,5 @@
+import { ReactNode } from 'react';
+
 export type MealRecipeType = {
   dateModified: string;
   idMeal: string;
@@ -125,6 +127,7 @@ export type Recipe = {
   strAlcoholic?: string;
   strInstructions?: string;
   strYoutube?: string;
+  type: string;
   [key: string]: any;
 };
 
@@ -138,4 +141,49 @@ export type RecommendationType = {
 export type RecommendationProps = {
   item: RecommendationType;
   index: number;
+};
+
+export type DoneRecipeType = {
+  id: string;
+  type: string;
+  nationality: string;
+  category: string;
+  alcoholicOrNot: string;
+  name: string;
+  image: string;
+  doneDate: string;
+  tags: string[];
+};
+
+export type UrlsType = {
+  ingredient: string;
+  name: string;
+  firstletter: string;
+};
+
+export type ChildrenProp = {
+  children: ReactNode;
+};
+
+export type DataContextType = {
+  meals: MealRecipeType[];
+  setMeals(dataMeals: MealRecipeType[]): void;
+  drinks: DrinkRecipeType[];
+  setDrinks(dataDrinks: DrinkRecipeType[]): void;
+  categories: CategoryType[];
+  setCategories(categories: CategoryType[]): void;
+  isUpdatedFavorites: boolean;
+  setIsUpdatedFavorites: (value: boolean) => void;
+};
+
+export type FavoriteRecipeType = {
+  id: string;
+  type: string;
+  nationality: string;
+  category: string;
+  alcoholicOrNot?: string;
+  name: string;
+  image: string;
+  doneDate?: string;
+  tags?: string[];
 };

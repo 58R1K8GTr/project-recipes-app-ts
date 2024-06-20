@@ -2,6 +2,7 @@ import { useLocation, Link } from 'react-router-dom';
 import { useState } from 'react';
 import profileIcon from '../../images/profileIcon.svg';
 import searchIcon from '../../images/searchIcon.svg';
+import SearchBar from '../SearchBar';
 
 function Header() {
   const [isHidden, setIsHidden] = useState(false);
@@ -29,12 +30,9 @@ function Header() {
           <img src={ searchIcon } alt="searchIcon" data-testid="search-top-btn" />
         </button>
         {noSearchIcon()}
-        {isHidden && (
-          <div>
-            <label htmlFor="searchBar">
-              <input type="text" data-testid="search-input" />
-            </label>
-          </div>)}
+        {
+          isHidden && <SearchBar />
+        }
       </header>
     );
   };
