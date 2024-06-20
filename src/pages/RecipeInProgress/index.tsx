@@ -4,6 +4,7 @@ import useFetchRecipeAndRecommendations from '../../hooks/useFetchRecipe';
 import './recipe-in-progress.css';
 import HorizontalShareButton from '../../components/HorizontalShareButton';
 import HorizontalFavoriteButton from '../../components/HorizontalFavoriteButton';
+import Loading from '../../components/Loading';
 
 function RecipeInProgress() {
   const { id = '' } = useParams<{ id?: string }>();
@@ -29,9 +30,8 @@ function RecipeInProgress() {
     }
   }, [recipe, type, id]);
 
-  // if (isLoading) return <div>Loading...</div>;
   if (!recipe || !recipe[type]) {
-    return <h1>Loading...</h1>;
+    return <Loading />;
   }
   const currentRecipe = recipe[type][0];
 
@@ -106,7 +106,7 @@ function RecipeInProgress() {
           className="controls_container
               d-flex flex-direction-row justify-content-between"
         >
-          <a href={ `/${type}` } className="return_link">
+          <a href={ `/${type}` } className="go_back_link">
             <p>return to list</p>
           </a>
           <div>

@@ -27,6 +27,10 @@ function DoneRecipes() {
     setSelectedType(type);
   };
 
+  if (doneRecipes.length === 0) {
+    return <h2>{'You haven\'t prepared any recipe yet.'}</h2>;
+  }
+
   return (
     <div>
       <div className="d-flex flex-row justify-content-evenly p-4">

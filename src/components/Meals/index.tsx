@@ -9,6 +9,7 @@ import RecipeCard from '../RecipeCard';
 import fetchFoodsByCategory from '../../utils/fetchFoodsByCategory';
 import DataContext from '../../context/DataContext';
 import './styles.css';
+import Loading from '../Loading';
 
 function Meals() {
   const { meals, setMeals, categories, setCategories } = useContext(DataContext);
@@ -39,7 +40,7 @@ function Meals() {
     }
   };
 
-  if (isLoadingMeals) return <div>Loading...</div>;
+  if (isLoadingMeals) return <Loading />;
 
   const getCategoryImage = (categoryName: string) => {
     const selected = 'text-primary-color';
