@@ -1,0 +1,34 @@
+.header {
+  background-color: #106e87;
+  border-radius: 0 0 12px 12px;
+  text-align: center;
+}
+
+.header_link {
+  color: inherit;
+  text-decoration: none;
+}
+
+.header_title {
+  margin: 0;
+}
+
+.header_buttons {
+  font-size: 2rem;
+}
+
+.search_button {
+  background-color: transparent;
+  border: none;
+  cursor: pointer;
+  font-size: 2.3rem;
+  margin-right: 1rem;
+}
+
+.profile_icon {
+  color: inherit;
+}
+
+.close-btn {
+  font-size: 3rem;
+}

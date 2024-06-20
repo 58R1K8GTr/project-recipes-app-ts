@@ -5,6 +5,7 @@ import { renderWithRouter } from '../utils/renderWithRouter';
 import RecipeInProgress from '../pages/RecipeInProgress';
 import MEAL_DATA from './helpers/mockDataSearchByMealNameArrabiata.json';
 import DRINK_DATA from './helpers/mockDataSearchCocktailByNameMargarita.json';
+import DataProvider from '../context/DataProvider';
 
 const MOCK_RESPONSE = {
   ok: true,
@@ -42,7 +43,13 @@ describe('Tests Meals on "Recipe in progress" Page', () => {
     vi.spyOn(global, 'fetch')
       .mockResolvedValueOnce(MOCK_RESPONSE);
 
-    renderWithRouter((<RecipeInProgress />), { route: MOCK_MEAL_ROUTE });
+    renderWithRouter(
+      (
+        <DataProvider>
+          <RecipeInProgress />
+        </DataProvider>
+      ), { route: MOCK_MEAL_ROUTE },
+    );
 
     await waitForElementToBeRemoved(() => screen.getByRole('heading', { name: /loading/i }));
 
@@ -58,7 +65,13 @@ describe('Tests Meals on "Recipe in progress" Page', () => {
     vi.spyOn(global, 'fetch')
       .mockResolvedValueOnce(MOCK_RESPONSE);
 
-    renderWithRouter((<RecipeInProgress />), { route: MOCK_MEAL_ROUTE });
+    renderWithRouter(
+      (
+        <DataProvider>
+          <RecipeInProgress />
+        </DataProvider>
+      ), { route: MOCK_MEAL_ROUTE },
+    );
 
     await waitForElementToBeRemoved(() => screen.getByRole('heading', { name: /loading/i }));
 
@@ -76,7 +89,13 @@ describe('Tests Meals on "Recipe in progress" Page', () => {
     vi.spyOn(global, 'fetch')
       .mockResolvedValueOnce(MOCK_RESPONSE);
 
-    renderWithRouter((<RecipeInProgress />), { route: MOCK_MEAL_ROUTE });
+    renderWithRouter(
+      (
+        <DataProvider>
+          <RecipeInProgress />
+        </DataProvider>
+      ), { route: MOCK_MEAL_ROUTE },
+    );
 
     await waitForElementToBeRemoved(() => screen.getByRole('heading', { name: /loading/i }));
 
@@ -111,9 +130,16 @@ describe('Tests Drinks on "Recipe in progressq" Page', () => {
     vi.spyOn(global, 'fetch')
       .mockResolvedValueOnce(MOCK_RESPONSE_2);
 
-    renderWithRouter((<RecipeInProgress />), { route: '/drinks/11007/in-progress' });
+    renderWithRouter(
+      (
+        <DataProvider>
+          <RecipeInProgress />
+        </DataProvider>
+      ), { route: '/drinks/11007/in-progress' },
+    );
 
     await waitForElementToBeRemoved(() => screen.getByRole('heading', { name: /loading/i }));
+
     const finishRecipeButton = screen.getByRole('button', { name: /finish recipe/i });
 
     const allCheckBoxes = screen.getAllByRole('checkbox') as HTMLInputElement[];

@@ -1,8 +1,8 @@
 import React from 'react';
-import './style.css';
 import { useNavigate } from 'react-router-dom';
 import drinkIcon from '../../images/drinkIcon.svg';
 import mealIcon from '../../images/mealIcon.svg';
+import './style.css';
 
 function Footer() {
   const navigate = useNavigate();
@@ -20,6 +20,7 @@ function Footer() {
             src={ mealIcon }
             alt="Ícone de Comida"
             data-testid="meals-bottom-btn"
+            className="footer_image_meal"
           />
         </button>
 
@@ -32,6 +33,7 @@ function Footer() {
             src={ drinkIcon }
             alt="Ícone de Bebida"
             data-testid="drinks-bottom-btn"
+            className="footer_image_drink"
           />
         </button>
 

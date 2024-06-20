@@ -10,6 +10,8 @@ function FavoriteRecipes() {
 
   const { isUpdatedFavorites, setIsUpdatedFavorites } = useContext(DataContext);
 
+  const [selectedType, setSelectedType] = useState<string>('all');
+
   // Upon first render, populates the list of favoriteRecipes and filteredRecipes
   useEffect(() => {
     const localStorageFavorites = localStorage.getItem('favoriteRecipes');
@@ -37,6 +39,7 @@ function FavoriteRecipes() {
   function filterRecipes(type: string) {
     if (type === 'all') {
       setFilteredRecipes(favoriteRecipes);
+      setSelectedType(type);
       return;
     }
 
@@ -44,6 +47,16 @@ function FavoriteRecipes() {
       .filter((recipe) => recipe.type === type);
 
     setFilteredRecipes(filterList);
+    setSelectedType(type);
+  }
+
+  if (favoriteRecipes.length === 0) {
+    return (
+      <div className="text-center mt-5">
+        <h5>The favorites list is empty.</h5>
+        <a href="/meals" className="go_back_link">Go back to the recipes...</a>
+      </div>
+    );
   }
 
   if (isLoading) {
@@ -52,22 +65,28 @@ function FavoriteRecipes() {
 
   return (
     <>
-      <div>
+      <div className="d-flex flex-row justify-content-evenly p-4">
         <button
           onClick={ () => filterRecipes('all') }
           data-testid="filter-by-all-btn"
+          className={ `filter_btn ${selectedType === 'all'
+            ? 'selectedFilterBtn' : ''}` }
         >
           All
         </button>
         <button
           onClick={ () => filterRecipes('meal') }
           data-testid="filter-by-meal-btn"
+          className={ `filter_btn ${selectedType === 'meal'
+            ? 'selectedFilterBtn' : ''}` }
         >
           Meals
         </button>
         <button
           onClick={ () => filterRecipes('drink') }
           data-testid="filter-by-drink-btn"
+          className={ `filter_btn ${selectedType === 'drink'
+            ? 'selectedFilterBtn' : ''}` }
         >
           Drinks
         </button>

@@ -3,6 +3,7 @@ import { useContext } from 'react';
 import fetchApi from '../../utils/fetchAPI';
 import useApiData from '../../hooks/useApiData';
 import DataContext from '../../context/DataContext';
+import './styles.css';
 
 function SearchBar() {
   const navigate = useNavigate();
@@ -46,19 +47,18 @@ function SearchBar() {
 
   // segui o padrão do projeto, deveria eu ter criado um componente somente para o input?
   return (
-    <form onSubmit={ handleSubmit }>
+    <form onSubmit={ handleSubmit } className="mt-3">
       <input
         type="text"
         placeholder="Search"
         data-testid="search-input"
         onChange={ ({ target: { value } }) => setTextInput(value) }
         value={ textInput }
+        className="form-control mb-2"
       />
       <div>
-        <div>
-          <label htmlFor="ingredient-search-radio">
-            Ingredient
-            {' '}
+        <div className="mb-2 mt-3">
+          <label htmlFor="ingredient-search-radio" className="margin_right">
             <input
               type="radio"
               name="filter"
@@ -67,11 +67,12 @@ function SearchBar() {
               value="ingredient"
               checked={ radioInput === 'ingredient' }
               onChange={ ({ target: { value } }) => setRadioInput(value) }
+              className="form-check-input"
             />
-          </label>
-          <label htmlFor="name-search-radio">
-            Name
             {' '}
+            Ingredient
+          </label>
+          <label htmlFor="name-search-radio" className="margin_right">
             <input
               type="radio"
               name="filter"
@@ -80,11 +81,13 @@ function SearchBar() {
               value="name"
               checked={ radioInput === 'name' }
               onChange={ ({ target: { value } }) => setRadioInput(value) }
+              className="form-check-input"
             />
+            {' '}
+            Name
           </label>
           <label htmlFor="first-letter-search-radio">
-            First letter
-            {' '}
+
             <input
               type="radio"
               name="filter"
@@ -93,11 +96,15 @@ function SearchBar() {
               value="firstletter"
               checked={ radioInput === 'firstletter' }
               onChange={ ({ target: { value } }) => setRadioInput(value) }
+              className="form-check-input"
             />
+            {' '}
+            First letter
           </label>
         </div>
         <button
           data-testid="exec-search-btn"
+          className="btn-like-bootstrap mb-2 mt-2"
         >
           Search
         </button>
