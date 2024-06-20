@@ -35,19 +35,30 @@ function RecipeInProgress() {
   }
   const currentRecipe = recipe[type][0];
 
-  // save checked checkbox in array and store them in localstorage.
+  // get isChecked Array and store it on localstorage.
   // Example: { meals: { currentID: [true, false, ...] }, ... } (same for drinks);
-  const handleOnChange = (position: number) => {
-    const updatedCheckedState = isChecked
-      .map((check, index) => (index === position ? !check : check));
-    setIsChecked(updatedCheckedState);
+  const handleLocalStorage = (updatedIsChecked: boolean[]) => {
     const inProgressRecipes = JSON
       .parse(localStorage.getItem('inProgressRecipes') || '{}');
     inProgressRecipes[type] = {
       ...inProgressRecipes[type],
-      [id]: updatedCheckedState,
+      [id]: updatedIsChecked,
     };
     localStorage.setItem('inProgressRecipes', JSON.stringify(inProgressRecipes));
+  };
+
+  // Check/Uncheck current checkbox and update isChecked Array;
+  const handleOnChange = (position: number) => {
+    const updatedCheckedState = isChecked
+      .map((check, index) => (index === position ? !check : check));
+    setIsChecked(updatedCheckedState);
+    handleLocalStorage(updatedCheckedState);
+  };
+
+  const handleSelectAll = (event: React.ChangeEvent<HTMLInputElement>) => {
+    const selectAll = isChecked.map(() => event.target.checked);
+    setIsChecked(selectAll);
+    handleLocalStorage(selectAll);
   };
 
   const handleFinishRecipe = () => {
@@ -65,6 +76,7 @@ function RecipeInProgress() {
     };
 
     localStorage.setItem('doneRecipes', JSON.stringify([...doneRecipes, newRecipe]));
+    localStorage.removeItem('inProgressRecipes');
     navigate('/done-recipes');
   };
   const renderIngredients = () => {
@@ -84,6 +96,7 @@ function RecipeInProgress() {
                 type="checkbox"
                 checked={ isChecked[index] }
                 onChange={ () => handleOnChange(index) }
+                name="ingredient-list-item"
               />
               {`${ingredient} - ${measure}`}
             </label>
@@ -96,8 +109,9 @@ function RecipeInProgress() {
   return (
     <div className="recipe-details">
       <img
-        src={ currentRecipe.strMealThumb }
-        alt={ `Imagem da receita ${currentRecipe.strMeal}` }
+        src={ isMeal ? currentRecipe.strMealThumb : currentRecipe.strDrinkThumb }
+        alt={ `Imagem da receita ${isMeal
+          ? currentRecipe.strMeal : currentRecipe.strDrink}` }
         data-testid="recipe-photo"
         className="recipe_image"
       />
@@ -139,6 +153,16 @@ function RecipeInProgress() {
         <p data-testid="instructions">{currentRecipe.strInstructions}</p>
 
         <div className="checkbox-container">
+          <label htmlFor="select-all">
+            <input
+              type="checkbox"
+              id="select-all"
+              name="select-all"
+              checked={ isChecked.every((check) => check) }
+              onChange={ handleSelectAll }
+            />
+            Select All
+          </label>
           {renderIngredients()}
         </div>
         <button
