@@ -28,7 +28,12 @@ function DoneRecipes() {
   };
 
   if (doneRecipes.length === 0) {
-    return <h2>{'You haven\'t prepared any recipe yet.'}</h2>;
+    return (
+      <div className="text-center mt-5">
+        <h5>{'You haven\'t prepared any meal yet.'}</h5>
+        <a href="/meals" className="go_back_link">Go back to the recipes...</a>
+      </div>
+    );
   }
 
   return (

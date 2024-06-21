@@ -132,7 +132,12 @@ function RecipeDetails() {
                   </li>
                 ))}
             </ul>
-            <p data-testid="instructions">{recipeInfo.strInstructions}</p>
+            <p
+              data-testid="instructions"
+              className="text-justify"
+            >
+              {recipeInfo.strInstructions}
+            </p>
             {isMeal && recipeInfo.strYoutube && (
               <iframe
                 data-testid="video"

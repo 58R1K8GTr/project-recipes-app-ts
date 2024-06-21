@@ -136,6 +136,8 @@ export type RecommendationType = {
   strDrink?: string;
   strMealThumb?: string;
   strDrinkThumb?: string;
+  idMeal?: string;
+  idDrink?: string;
 };
 
 export type RecommendationProps = {

@@ -23,3 +23,7 @@
   background-color: #212024;
   border: 0;
 }
+
+.recommended_link {
+  text-decoration: none;
+}
