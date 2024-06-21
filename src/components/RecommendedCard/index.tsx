@@ -7,21 +7,26 @@ function RecommendedCard({ item, index }: RecommendationProps) {
 
   return (
     <li className="recommended-card-container">
-      <Card
-        data-testid={ `${index}-recommendation-card` }
-        className="recommended-card"
+      <a
+        href={ `/${isMeal ? 'meals' : 'drinks'}/${isMeal ? item.idMeal : item.idDrink}` }
+        className="recommended_link"
       >
-        <Card.Img
-          className="recommended-img"
-          src={ isMeal ? item.strMealThumb : item.strDrinkThumb }
-        />
-        <Card.Footer
-          className="recommended-card-footer"
-          data-testid={ `${index}-recommendation-title` }
+        <Card
+          data-testid={ `${index}-recommendation-card` }
+          className="recommended-card"
         >
-          {isMeal ? item.strMeal : item.strDrink}
-        </Card.Footer>
-      </Card>
+          <Card.Img
+            className="recommended-img"
+            src={ isMeal ? item.strMealThumb : item.strDrinkThumb }
+          />
+          <Card.Footer
+            className="recommended-card-footer"
+            data-testid={ `${index}-recommendation-title` }
+          >
+            {isMeal ? item.strMeal : item.strDrink}
+          </Card.Footer>
+        </Card>
+      </a>
     </li>
   );
 }
