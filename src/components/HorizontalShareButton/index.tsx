@@ -22,9 +22,6 @@ function HorizontalShareButton({ testid, copyInfo, setIsCopied }: ShareButtonPro
       setIsCopied(false);
     }, 2000);
   }
-  const handleOnClick = () => {
-    copyToClipboard(recipeType, recipeId);
-  };
 
   return (
     <button
