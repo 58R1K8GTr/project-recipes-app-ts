@@ -45,10 +45,11 @@ function HorizontalFavoriteButton(
   }
 
   return (
-    <button onClick={ addOrRemoveFromFavorites }>
+    <button onClick={ addOrRemoveFromFavorites } className="button_control">
       <img
         data-testid={ testid }
         src={ isFavorited ? favoriteButton : notFavoriteButton }
+        className="favorite_btn"
         alt="favoritar"
       />
     </button>
