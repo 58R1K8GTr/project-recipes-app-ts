@@ -5,7 +5,6 @@ import './recipe-in-progress.css';
 import HorizontalShareButton from '../../components/HorizontalShareButton';
 import HorizontalFavoriteButton from '../../components/HorizontalFavoriteButton';
 import Loading from '../../components/Loading';
-import { getFormattedInstructions } from '../../utils/functions';
 
 function RecipeInProgress() {
   const { id = '' } = useParams<{ id?: string }>();

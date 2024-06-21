@@ -1,5 +1,4 @@
 import './recipe-details.css';
-import { IoMdArrowRoundBack } from 'react-icons/io';
 import React, { useEffect, useState } from 'react';
 import { Link, useParams } from 'react-router-dom';
 import RecommendedCarousel from '../../components/Carousel/index';
@@ -9,7 +8,6 @@ import StartRecipeButton from '../../components/StartRecipeButton';
 import HorizontalFavoriteButton from '../../components/HorizontalFavoriteButton';
 import HorizontalShareButton from '../../components/HorizontalShareButton';
 import Loading from '../../components/Loading';
-import { getFormattedInstructions } from '../../utils/functions';
 
 function RecipeDetails() {
   const { id = '' } = useParams<{ id?: string }>();
