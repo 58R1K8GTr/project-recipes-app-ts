@@ -1,5 +1,6 @@
 import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
+import logo from '../../images/newLogo.png';
 import './styles.css';
 
 function Login() {
@@ -19,7 +20,7 @@ function Login() {
 
   return (
     <div className="login_page overlay">
-      <img src="logo.svg" alt="" />
+      <img src={ logo } className="login_page--logo" alt="" />
       <h2 className="login_page--title">Login to your account</h2>
       <form onSubmit={ handleSubmit }>
         <div className="input_box">

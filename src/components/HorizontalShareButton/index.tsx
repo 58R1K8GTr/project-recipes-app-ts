@@ -21,9 +21,13 @@ function HorizontalShareButton({ testid, copyInfo, setIsCopied }: ShareButtonPro
   }
 
   return (
-    <button onClick={ () => copyToClipboard(recipeType, recipeId) }>
+    <button
+      onClick={ () => copyToClipboard(recipeType, recipeId) }
+      className="button_control"
+    >
       <img
         data-testid={ testid }
+        className="share_btn"
         src={ shareIcon }
         alt="Share"
       />

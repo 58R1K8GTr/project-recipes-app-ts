@@ -37,7 +37,10 @@ function RecipeDisplayCard({
       </div>
       <div className="right_side d-flex justify-content-between p-2">
         <div className="recipe_info">
-          <a href={ `/${recipeType}s/${recipeId}` }>
+          <a
+            href={ `/${recipeType}s/${recipeId}` }
+            className="recipe_title_color"
+          >
             <h5
               data-testid={ `${index}-horizontal-name` }
               className="recipe_title_size"
@@ -84,7 +87,7 @@ function RecipeDisplayCard({
             ))}
         </div>
         <div className="recipe_buttons">
-          <div className="d-flex flex-column">
+          <div className="d-flex flex-column gap-3">
             {!isDoneRecipes && <HorizontalFavoriteButton
               recipeDetails={ recipe }
               isFavorite
