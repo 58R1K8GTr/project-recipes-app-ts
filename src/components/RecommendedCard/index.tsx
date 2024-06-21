@@ -5,8 +5,6 @@ import { RecommendationProps } from '../../types';
 function RecommendedCard({ item, index }: RecommendationProps) {
   const isMeal = item.strMeal !== undefined;
 
-  console.log(item);
-
   return (
     <li className="recommended-card-container">
       <a
