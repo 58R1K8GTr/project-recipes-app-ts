@@ -18,6 +18,7 @@
 }
 
 .card_image {
+  border-radius: 12px;
   width: 100%;
 }
 
@@ -32,6 +33,12 @@
 .recipe_info {
   max-width: 200px;
   width: 100%;
+}
+
+.recipe_title_color {
+  color: inherit;
+  text-decoration: underline;
+  text-underline-offset: 4px;
 }
 
 .recipe_title_size {

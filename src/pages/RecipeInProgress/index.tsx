@@ -97,6 +97,7 @@ function RecipeInProgress() {
                 checked={ isChecked[index] }
                 onChange={ () => handleOnChange(index) }
                 name="ingredient-list-item"
+                className="form-check-input me-2"
               />
               {`${ingredient} - ${measure}`}
             </label>
@@ -160,6 +161,7 @@ function RecipeInProgress() {
               name="select-all"
               checked={ isChecked.every((check) => check) }
               onChange={ handleSelectAll }
+              className="form-check-input me-2"
             />
             Select All
           </label>

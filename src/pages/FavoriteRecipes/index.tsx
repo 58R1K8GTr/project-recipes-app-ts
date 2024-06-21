@@ -64,7 +64,7 @@ function FavoriteRecipes() {
   }
 
   return (
-    <>
+    <div>
       <div className="d-flex flex-row justify-content-evenly p-4">
         <button
           onClick={ () => filterRecipes('all') }
@@ -91,7 +91,11 @@ function FavoriteRecipes() {
           Drinks
         </button>
       </div>
-      {
+
+      <div
+        className="container d-flex flex-column align-items-center justify-content-center"
+      >
+        {
        filteredRecipes.map((recipe, index) => (
          <div
            data-testid="recipe-card"
@@ -104,7 +108,8 @@ function FavoriteRecipes() {
          </div>
        ))
     }
-    </>
+      </div>
+    </div>
   );
 }
 

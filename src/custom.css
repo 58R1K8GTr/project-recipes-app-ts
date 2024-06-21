@@ -24,11 +24,20 @@ body {
 }
 
 .go_back_link {
-  color: #e30957;
+  color: #ef8798;
   text-decoration: underline;
 }
 
-/* Basic Button Styling */
+.button_control {
+  background-color: transparent;
+  border: none;
+  margin: 0 12px;
+}
+
+.share_btn, .favorite_btn {
+  width: 2rem;
+}
+
 .btn-like-bootstrap {
   background-color: #e30957; /* Primary blue */
   border: 1px solid #e30957;
@@ -45,7 +54,6 @@ body {
   vertical-align: middle;
 }
 
-/* Disabled State */
 .btn-like-bootstrap:disabled, .btn-like-bootstrap.disabled {
   opacity: 0.65;
   pointer-events: none;
