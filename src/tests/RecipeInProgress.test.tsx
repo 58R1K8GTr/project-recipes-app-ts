@@ -1,5 +1,4 @@
 import { screen, waitForElementToBeRemoved } from '@testing-library/react';
-import userEvent from '@testing-library/user-event';
 import { vi } from 'vitest';
 import { renderWithRouter } from '../utils/renderWithRouter';
 import RecipeInProgress from '../pages/RecipeInProgress';
@@ -43,7 +42,7 @@ describe('Test Meals on "Recipe in progress" Page', () => {
     vi.spyOn(global, 'fetch')
       .mockResolvedValueOnce(MOCK_RESPONSE);
 
-    renderWithRouter(
+    const { user } = renderWithRouter(
       (
         <DataProvider>
           <RecipeInProgress />
@@ -57,15 +56,15 @@ describe('Test Meals on "Recipe in progress" Page', () => {
 
     expect(favoriteBtn.src).toBe('http://localhost:3000/src/images/whiteHeartIcon.svg');
 
-    // await userEvent.click(favoriteBtn);
+    await user.click(favoriteBtn);
 
-    // expect(favoriteBtn.src).toBe('http://localhost:3000/src/images/blackHeartIcon.svg');
+    expect(favoriteBtn.src).toBe('http://localhost:3000/src/images/blackHeartIcon.svg');
   });
   test('Test if checked checkbox has text with line through css property,', async () => {
     vi.spyOn(global, 'fetch')
       .mockResolvedValueOnce(MOCK_RESPONSE);
 
-    renderWithRouter(
+    const { user } = renderWithRouter(
       (
         <DataProvider>
           <RecipeInProgress />
@@ -77,11 +76,11 @@ describe('Test Meals on "Recipe in progress" Page', () => {
 
     const firstCheckBox = screen.getByText(/penne rigate/i) as HTMLInputElement;
 
-    await userEvent.click(firstCheckBox);
+    await user.click(firstCheckBox);
 
     expect(firstCheckBox.className).toBe('is-checked');
 
-    await userEvent.click(firstCheckBox);
+    await user.click(firstCheckBox);
 
     expect(firstCheckBox.className).toBe('');
   });
@@ -89,7 +88,7 @@ describe('Test Meals on "Recipe in progress" Page', () => {
     vi.spyOn(global, 'fetch')
       .mockResolvedValueOnce(MOCK_RESPONSE);
 
-    renderWithRouter(
+    const { user } = renderWithRouter(
       (
         <DataProvider>
           <RecipeInProgress />
@@ -105,18 +104,18 @@ describe('Test Meals on "Recipe in progress" Page', () => {
 
     const allCheckBoxes = screen.getAllByRole('checkbox') as HTMLInputElement[];
 
-    await userEvent.click(allCheckBoxes[1]);
-    await userEvent.click(allCheckBoxes[2]);
-    await userEvent.click(allCheckBoxes[3]);
-    await userEvent.click(allCheckBoxes[4]);
-    await userEvent.click(allCheckBoxes[5]);
-    await userEvent.click(allCheckBoxes[6]);
-    await userEvent.click(allCheckBoxes[7]);
-    await userEvent.click(allCheckBoxes[8]);
+    await user.click(allCheckBoxes[1]);
+    await user.click(allCheckBoxes[2]);
+    await user.click(allCheckBoxes[3]);
+    await user.click(allCheckBoxes[4]);
+    await user.click(allCheckBoxes[5]);
+    await user.click(allCheckBoxes[6]);
+    await user.click(allCheckBoxes[7]);
+    await user.click(allCheckBoxes[8]);
 
     expect(finishRecipeButton).not.toBeDisabled();
 
-    await userEvent.click(finishRecipeButton);
+    await user.click(finishRecipeButton);
     expect(window.location.pathname).toBe('/done-recipes');
   });
 });
@@ -129,7 +128,7 @@ describe('Test Drinks on "Recipe in progress" Page', () => {
     vi.spyOn(global, 'fetch')
       .mockResolvedValueOnce(MOCK_RESPONSE_2);
 
-    renderWithRouter(
+    const { user } = renderWithRouter(
       (
         <DataProvider>
           <RecipeInProgress />
@@ -143,22 +142,22 @@ describe('Test Drinks on "Recipe in progress" Page', () => {
     const selectAllCheckbox = await screen.findByText(/select all/i) as HTMLInputElement;
 
     const allCheckBoxes = screen.getAllByRole('checkbox') as HTMLInputElement[];
-    await userEvent.click(allCheckBoxes[1]);
-    await userEvent.click(allCheckBoxes[2]);
-    await userEvent.click(allCheckBoxes[3]);
-    await userEvent.click(allCheckBoxes[4]);
+    await user.click(allCheckBoxes[1]);
+    await user.click(allCheckBoxes[2]);
+    await user.click(allCheckBoxes[3]);
+    await user.click(allCheckBoxes[4]);
 
     expect(finishRecipeButton).not.toBeDisabled();
 
-    await userEvent.click(selectAllCheckbox);
+    await user.click(selectAllCheckbox);
 
     expect(finishRecipeButton).toBeDisabled();
 
-    await userEvent.click(selectAllCheckbox);
+    await user.click(selectAllCheckbox);
 
     expect(finishRecipeButton).not.toBeDisabled();
 
-    await userEvent.click(finishRecipeButton);
+    await user.click(finishRecipeButton);
 
     localStorage.setItem('doneRecipes', JSON.stringify(MOCK_LOCALSTORAGE_DRINK));
   });

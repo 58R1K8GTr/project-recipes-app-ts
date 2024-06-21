@@ -18,7 +18,13 @@ function HorizontalShareButton({ testid, copyInfo, setIsCopied }: ShareButtonPro
   async function copyToClipboard(type: string, id: string) {
     await navigator.clipboard.writeText(`http://localhost:3000/${type}s/${id}`);
     setIsCopied(true);
+    setTimeout(() => {
+      setIsCopied(false);
+    }, 2000);
   }
+  const handleOnClick = () => {
+    copyToClipboard(recipeType, recipeId);
+  };
 
   return (
     <button
