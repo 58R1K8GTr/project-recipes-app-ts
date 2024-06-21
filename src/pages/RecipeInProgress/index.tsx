@@ -151,7 +151,12 @@ function RecipeInProgress() {
         <h1 data-testid="recipe-title">{currentRecipe.strMeal}</h1>
         <p data-testid="recipe-category">{currentRecipe.strCategory}</p>
 
-        <p data-testid="instructions">{currentRecipe.strInstructions}</p>
+        <p
+          data-testid="instructions"
+          className="text-justify"
+        >
+          {currentRecipe.strInstructions}
+        </p>
 
         <div className="checkbox-container">
           <label htmlFor="select-all">

@@ -4,7 +4,7 @@
 }
 
 .is-checked {
-  text-decoration: line-through solid #ef8798;
+  text-decoration: line-through solid black;
 }
 
 .recipe-details {
