@@ -1,4 +1,5 @@
 import './recipe-details.css';
+import { IoMdArrowRoundBack } from 'react-icons/io';
 import React, { useEffect, useState } from 'react';
 import { Link, useParams } from 'react-router-dom';
 import RecommendedCarousel from '../../components/Carousel/index';
@@ -8,6 +9,7 @@ import StartRecipeButton from '../../components/StartRecipeButton';
 import HorizontalFavoriteButton from '../../components/HorizontalFavoriteButton';
 import HorizontalShareButton from '../../components/HorizontalShareButton';
 import Loading from '../../components/Loading';
+import { getFormattedInstructions } from '../../utils/functions';
 
 function RecipeDetails() {
   const { id = '' } = useParams<{ id?: string }>();
@@ -23,7 +25,6 @@ function RecipeDetails() {
   const [isDoneRecipe, setIsDoneRecipe] = useState(false);
   const [status, setStatus] = useState('Start');
   const [isCopied, setIsCopied] = useState(false);
-
   useEffect(() => {
     const storedRecipeJSON = localStorage.getItem('doneRecipes');
     const storedStatusJSON = localStorage.getItem('inProgressRecipes');
@@ -79,7 +80,7 @@ function RecipeDetails() {
               d-flex flex-direction-row justify-content-between"
             >
               <a href={ `/${type}` } className="go_back_link">
-                <p>return to list</p>
+                Return
               </a>
               <div>
                 <HorizontalFavoriteButton
