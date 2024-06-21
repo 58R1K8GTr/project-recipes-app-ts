@@ -36,7 +36,7 @@ function Header() {
       <div className="d-flex justify-content-between align-items-center">
         <div className="header_logo">
           <Link to="/meals" className="header_link">
-            <h3 className="header_title">Recipes App</h3>
+            <h3 className="header_title">Smart Cook</h3>
           </Link>
         </div>
         <div className="header_buttons">
