@@ -25,7 +25,8 @@ body {
 
 .go_back_link {
   color: #ef8798;
-  text-decoration: underline;
+  font-size: 20px;
+  text-decoration: none;
 }
 
 .button_control {
@@ -55,7 +56,7 @@ body {
 }
 
 .btn-like-bootstrap:disabled, .btn-like-bootstrap.disabled {
-  opacity: 0.65;
+  opacity: 0.5;
   pointer-events: none;
 }
 
