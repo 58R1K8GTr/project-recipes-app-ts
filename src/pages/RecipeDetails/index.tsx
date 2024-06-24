@@ -23,7 +23,6 @@ function RecipeDetails() {
   const [isDoneRecipe, setIsDoneRecipe] = useState(false);
   const [status, setStatus] = useState('Start');
   const [isCopied, setIsCopied] = useState(false);
-
   useEffect(() => {
     const storedRecipeJSON = localStorage.getItem('doneRecipes');
     const storedStatusJSON = localStorage.getItem('inProgressRecipes');
@@ -79,7 +78,7 @@ function RecipeDetails() {
               d-flex flex-direction-row justify-content-between"
             >
               <a href={ `/${type}` } className="go_back_link">
-                <p>return to list</p>
+                Return
               </a>
               <div>
                 <HorizontalFavoriteButton
