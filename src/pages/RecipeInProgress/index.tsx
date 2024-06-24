@@ -122,7 +122,7 @@ function RecipeInProgress() {
               d-flex flex-direction-row justify-content-between"
         >
           <a href={ `/${type}` } className="go_back_link">
-            <p>return to list</p>
+            Return
           </a>
           <div>
             <HorizontalFavoriteButton
