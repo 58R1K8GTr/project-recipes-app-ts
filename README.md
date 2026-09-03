@@ -65,15 +65,17 @@ O app foi estruturado sob o seguinte sistema de rotas dinâmicas:
 
 1. Clone o repositório:
    ```bash
-   git clone git@github.com:seu-usuario/sd-0x-project-recipes-app.git
+   git clone git@github.com:58R1K8GTr/sd-0x-project-recipes-app.git
    cd sd-0x-project-recipes-app
-2. Instale as dependências:
-    `npm install`
-3. Inicialize o servidor de desenvolvimento:
+2. Altere a versão do node para 18 (tenha o nvm instalado na máquina):
+    `nvm use`
+3. Instale as dependências:
+    `npm install --legacy-peer-deps`
+4. Inicialize o servidor de desenvolvimento:
     `npm start`
-4. Execute e verifique a cobertura dos testes unitários (rtl):
+5. Execute e verifique a cobertura dos testes unitários (rtl):
     `npm run coverage`
-5. Execute a suíte de testes de comportamento Cypress:
+6. Execute a suíte de testes de comportamento Cypress:
     ```
     # terminal
     npm run cy
