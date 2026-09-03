@@ -35,7 +35,6 @@ Neste projeto, consolidei conceitos avançados do ecossistema **React** e gerenc
 
 *   **React** (TypeScript)
 *   **Context API & Hooks**
-*   **Redux / React-Redux**
 *   **React Router** (Mapeamento de sub-rotas dinâmicas como `/meals/:id/in-progress`)
 *   **Bootstrap / React-Bootstrap** (Componentização visual e estilização adaptada para *Mobile First* — 360x640)
 *   **React Testing Library (RTL) & Jest**
