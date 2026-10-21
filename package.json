@@ -62,8 +62,8 @@
     "mochawesome-merge": "^4.2.2",
     "mochawesome-report-generator": "^6.2.0",
     "sass": "^1.101.0",
-    "stylelint": "^14.16.1",
-    "stylelint-order": "^5.0.0",
+    "stylelint": "^17.16.0",
+    "stylelint-order": "^8.1.2",
     "typescript": "^5.0.4",
     "vite": "^6.4.3",
     "vitest": "^3.2.6"
